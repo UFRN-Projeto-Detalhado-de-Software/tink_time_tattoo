@@ -7,6 +7,7 @@ import com.eliasfs06.tinktime.model.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -27,6 +28,7 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
         return new PropostaTatuagemDTO(Objects.requireNonNull(propostaTatuagemRepository.findById(id).orElse(null)));
     }
 
+    @Transactional
     public void create(PropostaTatuagemDTO propostaTatuagemDTO) throws BusinessException {
         PropostaTatuagem propostaTatuagem = new PropostaTatuagem();
         User cliente = userRepository.findById(propostaTatuagemDTO.getCliente().getId()).orElse(null);
@@ -39,7 +41,7 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
         propostaTatuagem.setCliente(cliente);
         propostaTatuagem.setTatuador(tatuador);
         propostaTatuagem.setDescricao(propostaTatuagemDTO.getDescricao());
-        propostaTatuagemRepository.save(propostaTatuagem);
+        create(propostaTatuagem);
     }
 
 }
