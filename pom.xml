@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eliasfs06</groupId>
-	<artifactId>spring-project-kickoff</artifactId>
+	<artifactId>tink-time</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-project-kickoff</name>
+	<name>tink-time</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
