@@ -3,7 +3,8 @@ package com.eliasfs06.tinktime.model;
 public enum UserRole {
 
     ADMIN("admin"),
-    USER("user");
+    USER("user"),
+    ARTIST("artist");
 
     private String role;
 
