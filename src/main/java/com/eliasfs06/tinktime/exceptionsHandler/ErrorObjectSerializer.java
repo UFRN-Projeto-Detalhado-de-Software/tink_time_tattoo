@@ -13,7 +13,6 @@ public class ErrorObjectSerializer extends JsonSerializer<ErrorObject> {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("message", errorObject.getMessage());
         jsonGenerator.writeStringField("field", errorObject.getField());
-        // You can handle the parameter field as needed, depending on its type.
         jsonGenerator.writeObjectField("parameter", errorObject.getParameter());
         jsonGenerator.writeEndObject();
     }
