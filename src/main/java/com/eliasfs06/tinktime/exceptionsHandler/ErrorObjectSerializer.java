@@ -1,4 +1,4 @@
-package com.eliasfs06.tinktime.model.exceptionsHandler;
+package com.eliasfs06.tinktime.exceptionsHandler;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
