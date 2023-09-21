@@ -1,9 +1,9 @@
 package com.eliasfs06.tinktime.service;
 
+import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.PropostaTatuagem;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
-import com.eliasfs06.tinktime.model.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
