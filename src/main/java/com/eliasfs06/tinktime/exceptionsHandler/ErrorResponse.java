@@ -1,4 +1,4 @@
-package com.eliasfs06.tinktime.model.exceptionsHandler;
+package com.eliasfs06.tinktime.exceptionsHandler;
 
 import org.springframework.http.HttpStatus;
 
