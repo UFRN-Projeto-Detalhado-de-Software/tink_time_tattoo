@@ -29,8 +29,12 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
     }
 
     @Transactional
-    public void create(PropostaTatuagemDTO propostaTatuagemDTO) throws BusinessException {
+    public PropostaTatuagem create(PropostaTatuagemDTO propostaTatuagemDTO) throws BusinessException {
         PropostaTatuagem propostaTatuagem = new PropostaTatuagem();
+
+        if (propostaTatuagemDTO.getCliente() == null || propostaTatuagemDTO.getTatuador() == null) {
+            throw new BusinessException("Cliente ou tatuador não pode ser nulo");
+        }
         User cliente = userRepository.findById(propostaTatuagemDTO.getCliente().getId()).orElse(null);
         User tatuador = userRepository.findById(propostaTatuagemDTO.getTatuador().getId()).orElse(null);
 
@@ -42,6 +46,8 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
         propostaTatuagem.setTatuador(tatuador);
         propostaTatuagem.setDescricao(propostaTatuagemDTO.getDescricao());
         create(propostaTatuagem);
+
+        return propostaTatuagem;
     }
 
 }

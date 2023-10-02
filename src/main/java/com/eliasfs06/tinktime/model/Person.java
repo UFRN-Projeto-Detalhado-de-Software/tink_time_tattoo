@@ -9,7 +9,7 @@ import java.util.Date;
 public class Person extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -21,15 +21,11 @@ public class Person extends BaseEntity{
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setId(Long id) {
-
-    }
-
-    public void setId(Integer id) {
         this.id = id;
     }
 

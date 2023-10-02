@@ -21,8 +21,8 @@ public class UserDTO {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.role = user.getUserRole().toString();
-        this.person = new PersonDTO(user.getPerson());
+        if (user.getUserRole() != null) this.role = user.getUserRole().toString();
+        if (user.getPerson() != null) this.person = new PersonDTO(user.getPerson());
     }
 
     public Long getId() {
