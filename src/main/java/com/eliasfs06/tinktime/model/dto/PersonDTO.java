@@ -1,30 +1,31 @@
-package com.eliasfs06.tinktime.model;
+package com.eliasfs06.tinktime.model.dto;
 
-import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.eliasfs06.tinktime.model.Person;
 
-import java.util.Date;
+public class PersonDTO {
 
-@Entity
-public class Person extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date birthDate;
+    private String birthDate;
 
     private String email;
 
-    @Override
+    public PersonDTO() {
+    }
+
+    public PersonDTO(Person person) {
+        this.id = person.getId();
+        this.name = person.getName();
+        this.birthDate = person.getBirthDate().toString();
+        this.email = person.getEmail();
+    }
+
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -37,11 +38,11 @@ public class Person extends BaseEntity{
         this.name = name;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
