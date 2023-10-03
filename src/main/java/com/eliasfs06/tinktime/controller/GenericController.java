@@ -40,8 +40,7 @@ public abstract class GenericController<T extends BaseEntity> {
 
     @GetMapping("/form")
     public ModelAndView getForm() {
-        String name = this.getEntityName();
-        ModelAndView mv = new ModelAndView(name + "/form");
+        ModelAndView mv = new ModelAndView(this.getEntityName() + "/form");
         try {
             mv.addObject(this.inferGenericType().getDeclaredConstructor().newInstance());
         } catch (IllegalAccessException | IllegalArgumentException | NoSuchMethodException |
@@ -58,9 +57,8 @@ public abstract class GenericController<T extends BaseEntity> {
 
     @PostMapping("")
     public ModelAndView save(T entity) {
-        ModelAndView mv = new ModelAndView();
+        ModelAndView mv = new ModelAndView(this.getEntityName() + "/list");
         this.service.save(entity);
-
         return mv;
     }
 

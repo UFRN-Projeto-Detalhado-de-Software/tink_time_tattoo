@@ -29,13 +29,13 @@ public class UserService extends GenericService<User>{
     public void registerUser(RegisterDTO registerData){
         Person person = registerData.toPerson();
         User user = registerData.toUser();
-        user.setPerson(person);
         encodePassword(user);
 
         if(user.getUserRole() == null)
             user.setUserRole(UserRole.USER);
 
-        personService.save(person);
+        Person personSaved = personService.save(person);
+        user.setPerson(personSaved);
         save(user);
     }
 
