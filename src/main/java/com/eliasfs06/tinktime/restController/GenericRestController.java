@@ -33,7 +33,7 @@ public abstract class GenericRestController<T extends BaseEntity> {
 
     @PostMapping("")
     public ResponseEntity<T> create(@RequestBody T created){
-        return ResponseEntity.ok(service.create(created));
+        return ResponseEntity.ok(service.save(created));
     }
 
     @DeleteMapping("/{id}")

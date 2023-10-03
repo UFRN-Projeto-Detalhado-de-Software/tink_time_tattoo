@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user")
-public class UserRestController extends GenericRestController<User> {
+@RequestMapping("/api/user")
+public class UserRestController extends GenericRestController<User>  {
 
     public UserRestController(UserRepository userRepository) {
         super(userRepository);

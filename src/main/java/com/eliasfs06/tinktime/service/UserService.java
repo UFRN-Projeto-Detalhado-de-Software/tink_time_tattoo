@@ -35,8 +35,8 @@ public class UserService extends GenericService<User>{
         if(user.getUserRole() == null)
             user.setUserRole(UserRole.USER);
 
-        personService.create(person);
-        create(user);
+        personService.save(person);
+        save(user);
     }
 
     public void encodePassword(User user){
