@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-public abstract class GenericRestController<T extends BaseEntity> {
+    public abstract class GenericRestController<T extends BaseEntity> {
 
     private final GenericService<T> service;
 
