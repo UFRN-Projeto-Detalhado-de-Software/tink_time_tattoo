@@ -35,7 +35,7 @@ public abstract class GenericService<T extends BaseEntity> {
     }
 
     @Transactional
-    public T create(T newElement){
+    public T save(T newElement){
         return repository.save(newElement);
     }
 
