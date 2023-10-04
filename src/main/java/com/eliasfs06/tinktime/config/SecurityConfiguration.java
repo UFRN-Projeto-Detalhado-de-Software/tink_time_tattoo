@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 ).formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                         .loginPage("/user/login").permitAll()
+                        .successForwardUrl("/index").permitAll()
                         .defaultSuccessUrl("/index",true).permitAll()
                         .failureUrl("/user/login?error=true").permitAll()
                 );

@@ -19,7 +19,7 @@ public class RegisterDTO {
     @NotBlank(message = "{email.not.blank}")
     @Email(message = "{email.not.valid}")
     private String email;
-
+    @NotBlank
     private UserRole userRole;
 
     public Person toPerson(){
