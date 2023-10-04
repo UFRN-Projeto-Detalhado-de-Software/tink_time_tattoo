@@ -4,12 +4,12 @@ import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.RegisterDTO;
 import com.eliasfs06.tinktime.repository.UserRepository;
 import com.eliasfs06.tinktime.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -24,21 +24,28 @@ public class UserController extends GenericController<User> {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(Model model, @RequestParam(name = "error", required = false) String error) {
         model.addAttribute("user", new User());
-        return "/login";
+        if (error != null) {
+            model.addAttribute("errorMessage", "Credenciais inválidas. Por favor, tente novamente.");
+        }
+        return "login";
     }
 
     @PostMapping("/register")
-    public String register(Model model, RegisterDTO userData){
+    public String register(@ModelAttribute("newUser") @Valid RegisterDTO userData, BindingResult br, Model model){
+        if (br.hasErrors()) {
+            return "register";
+        }
         userService.registerUser(userData);
-        return "/login";
+        return "login";
     }
+
 
     @GetMapping("/register/form")
     public String registerFomr(Model model){
-        model.addAttribute("user", new RegisterDTO());
-        return "/register";
+        model.addAttribute("newUser", new RegisterDTO());
+        return "register";
     }
 
 }

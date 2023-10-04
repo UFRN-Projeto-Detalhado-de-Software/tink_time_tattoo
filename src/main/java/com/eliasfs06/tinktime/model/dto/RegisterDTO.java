@@ -5,6 +5,7 @@ import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -19,7 +20,7 @@ public class RegisterDTO {
     @NotBlank(message = "{email.not.blank}")
     @Email(message = "{email.not.valid}")
     private String email;
-    @NotBlank
+    @NotNull
     private UserRole userRole;
 
     public Person toPerson(){

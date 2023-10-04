@@ -13,30 +13,36 @@
             <h2>Cadastro</h2>
             <form th:action="@{/user/register}" method="post" th:object="${newUser}">
                 <div class="form-group">
-                    <label for="name">Nome:</label>
-                    <input type="text" id="name" name="name" class="form-control" />
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" th:field="*{name}" />
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" class="form-control" />
+                    <input type="email" id="email" name="email" class="form-control" th:field="*{email}"/>
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label for="username">Nome de Usuário:</label>
-                    <input type="text" id="username" name="username" class="form-control" />
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" th:field="*{username}" />
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
                 </div>
+                <!-- Senha -->
                 <div class="form-group">
-                    <label for="password">Senha:</label>
-                    <input type="password" id="password" name="password" class="form-control" />
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" th:field="*{password}"/>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
                 </div>
+                <!-- Papel -->
                 <div class="form-group">
-                    <label for="userRole">Papel:</label>
-                    <select id="userRole" name="userRole" class="form-control">
+                    <label for="userRole">User role:</label>
+                    <select id="userRole" name="userRole" class="form-control" th:field="*{userRole}">
                         <option value="ADMIN">Admin</option>
                         <option value="USER">User</option>
                         <option value="ARTIST">Artist</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">Cadastrar</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
