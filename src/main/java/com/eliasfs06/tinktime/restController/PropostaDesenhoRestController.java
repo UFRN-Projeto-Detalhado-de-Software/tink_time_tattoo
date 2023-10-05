@@ -4,6 +4,7 @@ import com.eliasfs06.tinktime.model.PropostaDesenho;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class PropostaDesenhoRestController extends GenericRestController<Propost
 
     @Override
     @PostMapping("")
-    public ResponseEntity<PropostaDesenho> create(PropostaDesenho created) {
+    public ResponseEntity<PropostaDesenho> create(@RequestBody PropostaDesenho created) {
         return super.create(created);
     }
 }
