@@ -21,4 +21,36 @@ public class PropostaDesenhoDTO {
         this.propostaOrcamento = new PropostaOrcamentoDTO(propostaDesenho.getPropostaOrcamento());
         this.statusAprovacao = propostaDesenho.getStatusAprovacao().getDenominacao();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public byte[] getDesenho() {
+        return desenho;
+    }
+
+    public void setDesenho(byte[] desenho) {
+        this.desenho = desenho;
+    }
+
+    public PropostaOrcamentoDTO getPropostaOrcamento() {
+        return propostaOrcamento;
+    }
+
+    public void setPropostaOrcamento(PropostaOrcamentoDTO propostaOrcamento) {
+        this.propostaOrcamento = propostaOrcamento;
+    }
+
+    public String getStatusAprovacao() {
+        return statusAprovacao;
+    }
+
+    public void setStatusAprovacao(String statusAprovacao) {
+        this.statusAprovacao = statusAprovacao;
+    }
 }
