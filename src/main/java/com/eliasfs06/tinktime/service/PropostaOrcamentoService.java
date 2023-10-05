@@ -73,5 +73,18 @@ public class PropostaOrcamentoService extends GenericService<PropostaTatuagem> {
 
         return propostaOrcamento;
     }
+
+    public PropostaOrcamento recusar(Long id) throws BusinessException {
+        PropostaOrcamento propostaOrcamento = propostaOrcamentoRepository.findById(id).orElse(null);
+        if (propostaOrcamento == null) {
+            throw new BusinessException("Proposta de orçamento inválida");
+        }
+
+        propostaOrcamento.setAprovado(false);
+
+        propostaOrcamentoRepository.save(propostaOrcamento);
+
+        return propostaOrcamento;
+    }
 }
 
