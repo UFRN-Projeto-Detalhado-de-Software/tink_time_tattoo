@@ -8,9 +8,7 @@ import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.service.ArtistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,7 +42,7 @@ public class ArtistController extends GenericController<Artist> {
         return "artist/profile";
     }
 
-    @PostMapping("/profile/register")
+    @PostMapping("/profile")
     public String saveProfile(@ModelAttribute("artist") @Valid ArtistDTO artist, BindingResult br, Model model){
 
         if(br.hasErrors()){

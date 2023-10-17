@@ -16,15 +16,7 @@ public class ArtistDTO {
     private User user;
     private Long id;
 
-    public ArtistDTO() {
-    }
-
-    public ArtistDTO(String aboutMe, List<TattoStyle> styles, User user, Long id) {
-        this.aboutMe = aboutMe;
-        this.styles = styles;
-        this.user = user;
-        this.id = id;
-    }
+    public ArtistDTO(){}
 
     public ArtistDTO(Artist artist) {
         this.aboutMe = artist.getAboutMe();

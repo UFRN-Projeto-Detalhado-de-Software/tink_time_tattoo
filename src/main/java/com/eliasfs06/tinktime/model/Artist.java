@@ -2,6 +2,7 @@ package com.eliasfs06.tinktime.model;
 
 import jakarta.persistence.*;
 
+import javax.swing.text.Style;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,8 @@ public class Artist extends BaseEntity{
 
     @ElementCollection
     @CollectionTable(name = "styles", joinColumns = @JoinColumn(name = "artist_id"))
-    private List<String> styles;
+    @Enumerated(EnumType.STRING)
+    private List<TattoStyle> styles;
 
     @OneToOne
     private User user;
@@ -37,11 +39,11 @@ public class Artist extends BaseEntity{
         this.aboutMe = aboutMe;
     }
 
-    public List<String> getStyles() {
+    public List<TattoStyle> getStyles() {
         return styles;
     }
 
-    public void setStyles(List<String> styles) {
+    public void setStyles(List<TattoStyle> styles) {
         this.styles = styles;
     }
 

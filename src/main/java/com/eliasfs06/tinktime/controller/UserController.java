@@ -4,6 +4,7 @@ import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.RegisterDTO;
 import com.eliasfs06.tinktime.repository.UserRepository;
 import com.eliasfs06.tinktime.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,12 @@ public class UserController extends GenericController<User> {
     public String registerFomr(Model model){
         model.addAttribute("newUser", new RegisterDTO());
         return "register";
+    }
+
+    @RequestMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:login";
     }
 
 }
