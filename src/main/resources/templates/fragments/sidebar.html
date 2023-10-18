@@ -1,3 +1,8 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<link rel="stylesheet" th:href="@{/css/sidebar.css}" type="text/css">
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Tink Time</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -5,8 +10,32 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+      <!-- Funções para os usuários -->
       <li class="nav-item">
         <a class="nav-link" th:href="@{/index}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Listar Artistas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/proposta-tatuagem/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Enviar Propostas de Tatuagem</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Verificar Propostas de Orçamento</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Verificar Propostas de desenho</a>
+      </li>
+
+      <!-- Funções para os artistas -->
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ARTIST')">Verificar Propostas de Tatuagem</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ARTIST')">Enviar Propostas de Orçamento</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/index}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ARTIST')">Enviar Propostas de desenho</a>
       </li>
     </ul>
   </div>

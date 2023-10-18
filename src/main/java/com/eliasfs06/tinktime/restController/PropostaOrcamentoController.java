@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("proposta-orcamento")
+@RequestMapping("/api/proposta-orcamento")
 public class PropostaOrcamentoController extends GenericRestController<PropostaOrcamento> {
 
     private final PropostaOrcamentoService propostaOrcamentoService;
