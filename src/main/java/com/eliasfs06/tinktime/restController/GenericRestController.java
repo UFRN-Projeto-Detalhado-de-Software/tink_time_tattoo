@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
 
     @PostMapping("")
     public ResponseEntity<T> create(@RequestBody T created){
-        return ResponseEntity.ok(service.create(created));
+        return ResponseEntity.ok(service.save(created));
     }
 
     @DeleteMapping("/{id}")

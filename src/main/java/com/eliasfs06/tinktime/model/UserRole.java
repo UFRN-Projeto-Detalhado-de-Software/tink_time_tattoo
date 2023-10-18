@@ -1,5 +1,7 @@
 package com.eliasfs06.tinktime.model;
 
+import java.util.List;
+
 public enum UserRole {
 
     ADMIN("admin"),

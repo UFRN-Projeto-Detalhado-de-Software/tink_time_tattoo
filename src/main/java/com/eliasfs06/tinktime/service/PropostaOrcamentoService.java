@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PropostaOrcamentoService extends GenericService<PropostaTatuagem> {
+public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> {
 
     @Autowired
     private PropostaOrcamentoRepository propostaOrcamentoRepository;
@@ -25,7 +25,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaTatuagem> {
     @Autowired
     private PropostaTatuagemRepository propostaTatuagemRepository;
 
-    public PropostaOrcamentoService(GenericRepository<PropostaTatuagem> repository) {
+    public PropostaOrcamentoService(GenericRepository<PropostaOrcamento> repository) {
         super(repository);
     }
 
