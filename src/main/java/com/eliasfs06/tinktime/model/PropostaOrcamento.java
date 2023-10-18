@@ -1,6 +1,7 @@
 package com.eliasfs06.tinktime.model;
 
 import jakarta.persistence.*;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "PropostaOrcamento")
@@ -14,6 +15,9 @@ public class PropostaOrcamento extends BaseEntity {
     private PropostaTatuagem propostaTatuagem;
 
     private Float orcamento;
+
+    @Nullable
+    private boolean aprovado;
 
     @Override
     public Long getId() {
@@ -39,5 +43,13 @@ public class PropostaOrcamento extends BaseEntity {
 
     public void setOrcamento(Float orcamento) {
         this.orcamento = orcamento;
+    }
+
+    public boolean getAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(boolean aprovado) {
+        this.aprovado = aprovado;
     }
 }
