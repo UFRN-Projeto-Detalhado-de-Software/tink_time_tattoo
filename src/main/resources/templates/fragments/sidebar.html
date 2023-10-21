@@ -14,6 +14,7 @@
       <li class="nav-item">
         <a class="nav-link" th:href="@{/index}">Home</a>
       </li>
+<<<<<<< HEAD
       <li class="nav-item">
         <a class="nav-link" th:href="@{/index}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Listar Artistas</a>
       </li>
@@ -36,6 +37,11 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" th:href="@{/proposta-desenho/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ARTIST')">Enviar Propostas de desenho</a>
+      <li>
+        <a class="nav-link" th:href="@{/artist/profile}">About Me</a>
+      </li>
+      <li>
+        <a class="nav-link" th:href="@{/user/logout}">Log out</a>
       </li>
     </ul>
   </div>
