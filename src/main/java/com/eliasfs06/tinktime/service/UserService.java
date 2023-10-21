@@ -40,7 +40,7 @@ public class UserService extends GenericService<User>{
 
         Person personSaved = personService.save(person);
         user.setPerson(personSaved);
-        save(user);
+        userRepository.save(user);
         createEntityBaseOnUserRole(user);
     }
 

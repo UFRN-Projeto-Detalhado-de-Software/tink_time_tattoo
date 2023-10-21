@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Artista</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/sidebar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Listar Artistas</h2>
+        </div>
+
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Estilos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="artist : ${artistList}">
+                        <td th:text="${artist.user.person.name}"></td>
+                        <td th:text="${artist.aboutMe}"></td>
+                        <td th:each="style : ${artist.styles}">
+                            <p th:text="${style.description}"></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

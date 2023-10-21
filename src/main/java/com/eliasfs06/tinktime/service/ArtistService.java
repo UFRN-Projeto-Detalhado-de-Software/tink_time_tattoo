@@ -28,4 +28,8 @@ public class ArtistService extends GenericService<Artist>{
         artist.setUser(user);
         save(artist);
     }
+
+    public java.util.List<Artist> listActiveArtists() {
+        return repository.listActiveArtists();
+    }
 }
