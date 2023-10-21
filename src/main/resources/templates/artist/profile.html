@@ -49,7 +49,7 @@
         $(".readonly").prop("readonly", true);
 
         $("#editButton").click(function(e) {
-            e.preventDefault(); // Impede a ação padrão do botão submit
+            e.preventDefault();
 
             if ($(this).text() === "Edit") {
                 $(this).text("Save");
@@ -57,7 +57,7 @@
             } else {
                 $(this).text("Edit");
                 $(".readonly").prop("readonly", true);
-                $("#artistForm").submit(); // Agora o formulário é enviado quando você clica em "Save"
+                $("#artistForm").submit();
             }
         });
     });
