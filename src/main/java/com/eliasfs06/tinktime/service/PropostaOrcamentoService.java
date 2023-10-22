@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> {
 
@@ -85,6 +88,14 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
         propostaOrcamentoRepository.save(propostaOrcamento);
 
         return propostaOrcamento;
+    }
+
+    public List<PropostaOrcamento> listPropostasByUser(Long id) {
+        Optional<List<PropostaOrcamento>> propostaOrcamentoOptional = propostaOrcamentoRepository.findAllByTatuadorId(id);
+        if (propostaOrcamentoOptional.isPresent()) {
+            return propostaOrcamentoOptional.get();
+        }
+        return null;
     }
 }
 
