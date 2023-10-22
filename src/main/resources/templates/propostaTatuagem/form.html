@@ -13,6 +13,24 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Enviar Proposta de tatuagem</h2>
+            <form th:action="@{/proposta-tatuagem/create}" method="post" th:object="${newTatuagem}">
+                <div class="form-group">
+                    <label for="tatuador">Tatuador:</label>
+                    <select id="tatuador" name="tatuador" class="form-select" th:field="*{tatuador}">
+                        <option value="">-- Selecione --</option>
+                        <option th:each="artista : ${artistas}"
+                                th:value="${artista.user.id}"
+                                th:text="${artista.user.person.name}"></option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('tatuador')}" th:errors="*{tatuador}" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descricao:</label>
+                    <input type="text" id="descricao" name="descricao" class="form-control" th:field="*{descricao}" />
+                    <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
         </div>
     </div>
 </div>
