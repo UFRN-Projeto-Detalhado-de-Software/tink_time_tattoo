@@ -1,11 +1,13 @@
 package com.eliasfs06.tinktime.service;
 
+import com.eliasfs06.tinktime.model.Artist;
 import com.eliasfs06.tinktime.model.Person;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.UserRole;
 import com.eliasfs06.tinktime.model.dto.RegisterDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.UserRepository;
+import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,10 @@ public class UserService extends GenericService<User>{
     private UserRepository userRepository;
     @Autowired
     private PersonService personService;
+    @Autowired
+    private ArtistService artistService;
+    @Autowired
+    private ClientService clientService;
 
     public UserService(GenericRepository<User> userRepository) {
         super(userRepository);
@@ -29,14 +35,22 @@ public class UserService extends GenericService<User>{
     public void registerUser(RegisterDTO registerData){
         Person person = registerData.toPerson();
         User user = registerData.toUser();
-        encodePassword(user);
 
-        if(user.getUserRole() == null)
-            user.setUserRole(UserRole.USER);
+        encodePassword(user);
 
         Person personSaved = personService.save(person);
         user.setPerson(personSaved);
         save(user);
+        createEntityBaseOnUserRole(user);
+    }
+
+    private void createEntityBaseOnUserRole(User user) {
+        if(user.getUserRole() == UserRole.ARTIST){
+            artistService.createArtist(user);
+        }
+        if(user.getUserRole() == UserRole.USER){
+            clientService.createClient(user);
+        }
     }
 
     public void encodePassword(User user){
