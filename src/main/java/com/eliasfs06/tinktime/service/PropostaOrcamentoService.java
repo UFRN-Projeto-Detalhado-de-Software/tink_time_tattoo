@@ -90,7 +90,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
         return propostaOrcamento;
     }
 
-    public List<PropostaOrcamento> listPropostasByUser(Long id) {
+    public List<PropostaOrcamento> listPropostasByUserID(Long id) {
         Optional<List<PropostaOrcamento>> propostaOrcamentoOptional = propostaOrcamentoRepository.findAllByTatuadorId(id);
         if (propostaOrcamentoOptional.isPresent()) {
             return propostaOrcamentoOptional.get();

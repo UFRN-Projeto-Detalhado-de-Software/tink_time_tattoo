@@ -23,10 +23,10 @@ public class PropostaOrcamentoController {
 
 
     @GetMapping("/list")
-    public ModelAndView listArtists(){
+    public ModelAndView listOrcamentos(){
         ModelAndView modelAndView = new ModelAndView();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<PropostaOrcamento> propostasList = propostaOrcamentoService.listPropostasByUser(user.getId());
+        List<PropostaOrcamento> propostasList = propostaOrcamentoService.listPropostasByUserID(user.getId());
         if (propostasList == null)
             propostasList =new ArrayList<>();
 

@@ -5,17 +5,20 @@ import com.eliasfs06.tinktime.model.PropostaTatuagem;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
+import com.eliasfs06.tinktime.repository.PropostaTatuagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
 
     @Autowired
-    private GenericRepository<PropostaTatuagem> propostaTatuagemRepository;
+    private PropostaTatuagemRepository propostaTatuagemRepository;
 
     @Autowired
     private GenericRepository<User> userRepository;
@@ -48,6 +51,13 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
         propostaTatuagemRepository.save(propostaTatuagem);
 
         return propostaTatuagem;
+    }
+
+    public List<PropostaTatuagem> listPropostasByUserID(Long id){
+        Optional<List<PropostaTatuagem>> propostas =  propostaTatuagemRepository.findAllByTatuadorId(id);
+        if (propostas.isPresent())
+            return propostas.get();
+        return null;
     }
 
 }

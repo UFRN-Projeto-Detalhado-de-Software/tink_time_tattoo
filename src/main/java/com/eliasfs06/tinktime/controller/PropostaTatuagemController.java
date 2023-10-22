@@ -3,6 +3,7 @@ package com.eliasfs06.tinktime.controller;
 import ch.qos.logback.core.model.Model;
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.Artist;
+import com.eliasfs06.tinktime.model.PropostaOrcamento;
 import com.eliasfs06.tinktime.model.PropostaTatuagem;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
@@ -20,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,6 +36,19 @@ public class PropostaTatuagemController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/list")
+    public ModelAndView listTatuagens(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<PropostaTatuagem> propostasList = propostaTatuagemService.listPropostasByUserID(user.getId());
+        if (propostasList == null)
+            propostasList =new ArrayList<>();
+
+        modelAndView.addObject("propostasList", propostasList);
+        modelAndView.setViewName("propostaTatuagem/list");
+        return modelAndView;
+    }
 
 
     @GetMapping("/form")
