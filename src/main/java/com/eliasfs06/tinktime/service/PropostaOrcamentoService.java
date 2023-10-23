@@ -2,10 +2,10 @@ package com.eliasfs06.tinktime.service;
 
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.PropostaOrcamento;
+import com.eliasfs06.tinktime.model.PropostaStatus;
 import com.eliasfs06.tinktime.model.PropostaTatuagem;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.PropostaOrcamentoDTO;
-import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.PropostaOrcamentoRepository;
 import com.eliasfs06.tinktime.repository.PropostaTatuagemRepository;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +59,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
 
         propostaOrcamento.setPropostaTatuagem(propostaTatuagem);
         propostaOrcamento.setOrcamento(propostaOrcamentoDTO.getOrcamento());
+        propostaOrcamento.setAprovado(PropostaStatus.AVALIACAO);
 
         propostaOrcamentoRepository.save(propostaOrcamento);
 
@@ -70,7 +72,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
             throw new BusinessException("Proposta de orçamento inválida");
         }
 
-        propostaOrcamento.setAprovado(true);
+        propostaOrcamento.setAprovado(PropostaStatus.APROVADO);
 
         propostaOrcamentoRepository.save(propostaOrcamento);
 
@@ -83,19 +85,19 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
             throw new BusinessException("Proposta de orçamento inválida");
         }
 
-        propostaOrcamento.setAprovado(false);
+        propostaOrcamento.setAprovado(PropostaStatus.RECUSADO);
 
         propostaOrcamentoRepository.save(propostaOrcamento);
 
         return propostaOrcamento;
     }
 
-    public List<PropostaOrcamento> listPropostasByUserID(Long id) {
-        Optional<List<PropostaOrcamento>> propostaOrcamentoOptional = propostaOrcamentoRepository.findAllByTatuadorId(id);
+    public List<PropostaOrcamento> listPropostasByClienteID(Long id) {
+        Optional<List<PropostaOrcamento>> propostaOrcamentoOptional = propostaOrcamentoRepository.findAllByClienteId(id);
         if (propostaOrcamentoOptional.isPresent()) {
             return propostaOrcamentoOptional.get();
         }
-        return null;
+        return new ArrayList<>();
     }
 }
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta de Orçamento</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/sidebar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Enviar Proposta de Orçamento</h2>
+            <form th:action="@{/proposta-orcamento/create}" method="post" th:object="${newOrcamento}">
+                <div class="form-group">
+                    <label for="Cliente">Cliente:</label>
+                    <select id="Cliente" name="Cliente" class="form-select">
+                        <option value="">-- Selecione --</option>
+                        <option th:each="cliente : ${clientes}"
+                                th:value="${cliente.user.id}"
+                                th:text="${cliente.user.person.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tatuagem">Proposta de Tatuagem:</label>
+                    <select id="tatuagem" name="tatuagem" class="form-select" th:field="*{propostaTatuagem}">
+                        <option value="">-- Selecione --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="orcamento">Orçamento:</label>
+                    <input type="text" id="orcamento" name="orcamento" class="form-control" th:field="*{orcamento}" />
+                    <span th:if="${#fields.hasErrors('orcamento')}" th:errors="*{orcamento}" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    $('#Cliente').change(function () {
+        var clienteId = $(this).val();
+        if (clienteId) {
+            $.get('/proposta-orcamento/getPropostasByCliente?clienteId=' + clienteId, function (propostas) {
+                var propostaDropdown = $('#tatuagem');
+                propostaDropdown.empty();
+                propostaDropdown.append($('<option>').text('-- Selecione --'));
+                $.each(propostas, function (i, proposta) {
+                    propostaDropdown.append($('<option>').text(proposta.descricao).attr('value', proposta.id));
+                });
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

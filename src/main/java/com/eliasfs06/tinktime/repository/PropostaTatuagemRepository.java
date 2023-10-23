@@ -13,4 +13,8 @@ public interface PropostaTatuagemRepository extends GenericRepository<PropostaTa
 
     @Query("SELECT p FROM PropostaTatuagem p WHERE p.tatuador.id = ?1")
     Optional<List<PropostaTatuagem>> findAllByTatuadorId(Long id);
+
+    //find all by cliente id
+    @Query("SELECT p FROM PropostaTatuagem p WHERE p.cliente.id = ?1")
+    Optional<List<PropostaTatuagem>> findAllByClienteId(Long id);
 }

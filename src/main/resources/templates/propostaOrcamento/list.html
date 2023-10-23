@@ -28,8 +28,11 @@
                 <tr th:each="proposta : ${propostasList}">
                     <td th:text="${proposta.propostaTatuagem.descricao}"></td>
                     <td th:text="${proposta.orcamento}"></td>
-                    <td th:if="${proposta.aprovado == 'true'}" th:text="Aprovado"></td>
-                    <td th:unless="${proposta.aprovado == 'true'}" th:text="Recusado"></td>
+                    <td th:switch="${proposta.aprovado.toString()}">
+                        <p th:case="'APROVADO'">Aprovado</p>
+                        <p th:case="'AVALIACAO'">Em Avaliação</p>
+                        <p th:case="'RECUSADO'">Recusado</p>
+                    </td>
                 </tr>
                 </tbody>
             </table>
