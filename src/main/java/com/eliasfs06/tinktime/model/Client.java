@@ -1,10 +1,7 @@
 package com.eliasfs06.tinktime.model;
 
 import com.eliasfs06.tinktime.model.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Client extends BaseEntity {
@@ -13,6 +10,8 @@ public class Client extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    private User user;
 
     @Override
     public Long getId() {
@@ -22,5 +21,13 @@ public class Client extends BaseEntity {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

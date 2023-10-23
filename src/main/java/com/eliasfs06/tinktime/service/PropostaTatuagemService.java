@@ -45,7 +45,7 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
         propostaTatuagem.setCliente(cliente);
         propostaTatuagem.setTatuador(tatuador);
         propostaTatuagem.setDescricao(propostaTatuagemDTO.getDescricao());
-        save(propostaTatuagem);
+        propostaTatuagemRepository.save(propostaTatuagem);
 
         return propostaTatuagem;
     }
