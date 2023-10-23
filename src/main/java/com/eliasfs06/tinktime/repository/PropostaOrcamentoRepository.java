@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PropostaOrcamentoRepository extends GenericRepository<PropostaOrcamento>{
 
     //find all where propostaTatuagem.tatuador.id = id
-    @Query("SELECT p FROM PropostaOrcamento p WHERE p.propostaTatuagem.tatuador.id = ?1")
-    Optional<List<PropostaOrcamento>> findAllByTatuadorId(Long id);
+    @Query("SELECT p FROM PropostaOrcamento p WHERE p.propostaTatuagem.cliente.id = ?1")
+    Optional<List<PropostaOrcamento>> findAllByClienteId(Long id);
 
 }
