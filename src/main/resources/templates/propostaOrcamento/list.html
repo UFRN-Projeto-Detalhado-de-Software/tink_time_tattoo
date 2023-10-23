@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Propostas de Orçamento</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/sidebar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Listar Propostas de Orçamento</h2>
+        </div>
+
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Descricao</th>
+                    <th>Orcamento (R$)</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="proposta : ${propostasList}">
+                    <td th:text="${proposta.propostaTatuagem.descricao}"></td>
+                    <td th:text="${proposta.orcamento}"></td>
+                    <td th:switch="${proposta.aprovado.toString()}">
+                        <p th:case="'APROVADO'">Aprovado</p>
+                        <p th:case="'AVALIACAO'">Em Avaliação</p>
+                        <p th:case="'RECUSADO'">Recusado</p>
+                    </td>
+                    <td>
+                        <a th:href="@{/propostaOrcamento/{id}/editar(id=${proposta.id})}" class="btn btn-success">Aprovar</a>
+                        <a th:href="@{/propostaOrcamento/{id}/excluir(id=${proposta.id})}" class="btn btn-danger">Recusar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
