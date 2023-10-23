@@ -17,7 +17,8 @@ public class PropostaOrcamento extends BaseEntity {
     private Float orcamento;
 
     @Nullable
-    private boolean aprovado;
+    @Enumerated(EnumType.STRING)
+    private PropostaStatus aprovado;
 
     @Override
     public Long getId() {
@@ -26,7 +27,6 @@ public class PropostaOrcamento extends BaseEntity {
 
     @Override
     public void setId(Long id) {
-
     }
 
     public PropostaTatuagem getPropostaTatuagem() {
@@ -45,11 +45,11 @@ public class PropostaOrcamento extends BaseEntity {
         this.orcamento = orcamento;
     }
 
-    public boolean getAprovado() {
+    public PropostaStatus getAprovado() {
         return aprovado;
     }
 
-    public void setAprovado(boolean aprovado) {
+    public void setAprovado(PropostaStatus aprovado) {
         this.aprovado = aprovado;
     }
 }

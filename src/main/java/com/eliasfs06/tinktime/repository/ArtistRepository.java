@@ -10,4 +10,7 @@ public interface ArtistRepository extends GenericRepository<Artist> {
 
     @Query(value = "SELECT a FROM Artist a WHERE a.user = ?1 AND a.active = true", nativeQuery = false)
     Artist findByUser(User user);
+
+    @Query(value = "SELECT a FROM Artist a WHERE a.active = true", nativeQuery = false)
+    java.util.List<Artist> listActiveArtists();
 }

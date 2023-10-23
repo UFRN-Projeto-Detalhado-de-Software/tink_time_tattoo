@@ -2,22 +2,19 @@ package com.eliasfs06.tinktime.restController;
 
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.PropostaOrcamento;
-import com.eliasfs06.tinktime.model.PropostaTatuagem;
 import com.eliasfs06.tinktime.model.dto.PropostaOrcamentoDTO;
-import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.service.PropostaOrcamentoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("proposta-orcamento")
-public class PropostaOrcamentoController extends GenericRestController<PropostaOrcamento> {
+@RequestMapping("/api/proposta-orcamento")
+public class PropostaOrcamentoRestController extends GenericRestController<PropostaOrcamento> {
 
     private final PropostaOrcamentoService propostaOrcamentoService;
 
-    public PropostaOrcamentoController(GenericRepository<PropostaOrcamento> repository, PropostaOrcamentoService propostaOrcamentoService) {
+    public PropostaOrcamentoRestController(GenericRepository<PropostaOrcamento> repository, PropostaOrcamentoService propostaOrcamentoService) {
         super(repository);
         this.propostaOrcamentoService = propostaOrcamentoService;
     }

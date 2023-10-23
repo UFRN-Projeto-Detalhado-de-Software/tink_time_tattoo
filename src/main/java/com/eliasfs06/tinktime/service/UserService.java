@@ -5,12 +5,15 @@ import com.eliasfs06.tinktime.model.Person;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.UserRole;
 import com.eliasfs06.tinktime.model.dto.RegisterDTO;
+import com.eliasfs06.tinktime.model.dto.UserDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.UserRepository;
-import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService extends GenericService<User>{
@@ -32,6 +35,10 @@ public class UserService extends GenericService<User>{
         return userRepository.findByUsername(username);
     }
 
+    public User findByID(Long id){
+        return userRepository.findById(id).get();
+    }
+
     public void registerUser(RegisterDTO registerData){
         Person person = registerData.toPerson();
         User user = registerData.toUser();
@@ -40,7 +47,7 @@ public class UserService extends GenericService<User>{
 
         Person personSaved = personService.save(person);
         user.setPerson(personSaved);
-        save(user);
+        userRepository.save(user);
         createEntityBaseOnUserRole(user);
     }
 
@@ -56,5 +63,7 @@ public class UserService extends GenericService<User>{
     public void encodePassword(User user){
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
     }
+
+
 
 }
