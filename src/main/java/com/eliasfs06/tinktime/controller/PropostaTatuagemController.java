@@ -70,4 +70,10 @@ public class PropostaTatuagemController {
         }
         return "redirect:/index";
     }
+
+    @GetMapping("/getPropostasByCliente")
+    @ResponseBody
+    public List<PropostaTatuagem> getPropostasByCliente(@RequestParam Long clienteId) {
+        return propostaTatuagemService.listPropostasByClienteID(clienteId);
+    }
 }

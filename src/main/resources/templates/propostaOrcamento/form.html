@@ -45,7 +45,7 @@
     $('#Cliente').change(function () {
         var clienteId = $(this).val();
         if (clienteId) {
-            $.get('/proposta-orcamento/getPropostasByCliente?clienteId=' + clienteId, function (propostas) {
+            $.get('/proposta-tatuagem/getPropostasByCliente?clienteId=' + clienteId, function (propostas) {
                 var propostaDropdown = $('#tatuagem');
                 propostaDropdown.empty();
                 propostaDropdown.append($('<option>').text('-- Selecione --'));
