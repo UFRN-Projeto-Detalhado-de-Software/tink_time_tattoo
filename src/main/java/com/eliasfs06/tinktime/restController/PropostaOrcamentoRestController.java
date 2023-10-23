@@ -28,22 +28,4 @@ public class PropostaOrcamentoRestController extends GenericRestController<Propo
             return ResponseEntity.badRequest().build();
         }
     }
-
-    @GetMapping("/recusar/{id}")
-    public ResponseEntity<PropostaOrcamento> recusar(@PathVariable("id") Long id){
-        try {
-            return ResponseEntity.ok(propostaOrcamentoService.recusar(id));
-        } catch (BusinessException e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/aprovar/{id}")
-    public ResponseEntity<PropostaOrcamento> aprovar(@PathVariable("id") Long id){
-        try {
-            return ResponseEntity.ok(propostaOrcamentoService.aprovar(id));
-        } catch (BusinessException e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
 }

@@ -29,14 +29,10 @@
                 <tr th:each="proposta : ${propostasList}">
                     <td th:text="${proposta.propostaTatuagem.descricao}"></td>
                     <td th:text="${proposta.orcamento}"></td>
-                    <td th:switch="${proposta.aprovado.toString()}">
-                        <p th:case="'APROVADO'">Aprovado</p>
-                        <p th:case="'AVALIACAO'">Em Avaliação</p>
-                        <p th:case="'RECUSADO'">Recusado</p>
-                    </td>
+                    <td th:text="${proposta.statusAprovacao.getDenominacao()}"></td>
                     <td>
-                        <a th:href="@{/propostaOrcamento/{id}/editar(id=${proposta.id})}" class="btn btn-success">Aprovar</a>
-                        <a th:href="@{/propostaOrcamento/{id}/excluir(id=${proposta.id})}" class="btn btn-danger">Recusar</a>
+                        <a th:href="@{/proposta-orcamento/aprovar/{id}(id=${proposta.id})}" class="btn btn-success">Aprovar</a>
+                        <a th:href="@{/proposta-orcamento/recusar/{id}(id=${proposta.id})}" class="btn btn-danger">Recusar</a>
                     </td>
                 </tr>
                 </tbody>

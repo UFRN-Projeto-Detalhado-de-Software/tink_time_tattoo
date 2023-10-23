@@ -2,10 +2,10 @@ package com.eliasfs06.tinktime.service;
 
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.PropostaOrcamento;
-import com.eliasfs06.tinktime.model.PropostaStatus;
 import com.eliasfs06.tinktime.model.PropostaTatuagem;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.PropostaOrcamentoDTO;
+import com.eliasfs06.tinktime.model.enums.StatusAprovacao;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.PropostaOrcamentoRepository;
 import com.eliasfs06.tinktime.repository.PropostaTatuagemRepository;
@@ -59,7 +59,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
 
         propostaOrcamento.setPropostaTatuagem(propostaTatuagem);
         propostaOrcamento.setOrcamento(propostaOrcamentoDTO.getOrcamento());
-        propostaOrcamento.setAprovado(PropostaStatus.AVALIACAO);
+        propostaOrcamento.setStatusAprovacao(StatusAprovacao.PENDENTE);
 
         propostaOrcamentoRepository.save(propostaOrcamento);
 
@@ -72,7 +72,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
             throw new BusinessException("Proposta de orçamento inválida");
         }
 
-        propostaOrcamento.setAprovado(PropostaStatus.APROVADO);
+        propostaOrcamento.setStatusAprovacao(StatusAprovacao.APROVADO);
 
         propostaOrcamentoRepository.save(propostaOrcamento);
 
@@ -85,7 +85,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
             throw new BusinessException("Proposta de orçamento inválida");
         }
 
-        propostaOrcamento.setAprovado(PropostaStatus.RECUSADO);
+        propostaOrcamento.setStatusAprovacao(StatusAprovacao.REPROVADO);
 
         propostaOrcamentoRepository.save(propostaOrcamento);
 

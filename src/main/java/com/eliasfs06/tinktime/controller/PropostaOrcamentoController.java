@@ -9,6 +9,7 @@ import com.eliasfs06.tinktime.service.ClientService;
 import com.eliasfs06.tinktime.service.PropostaOrcamentoService;
 import com.eliasfs06.tinktime.service.PropostaTatuagemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -72,6 +73,26 @@ public class PropostaOrcamentoController {
             return "redirect:/index";
         }
         return "redirect:/index";
+    }
+
+    @GetMapping("/recusar/{id}")
+    public String recusar(@PathVariable("id") Long id){
+        try {
+            propostaOrcamentoService.recusar(id);
+            return "redirect:/proposta-orcamento/list";
+        } catch (BusinessException e) {
+            return "redirect:/index";
+        }
+    }
+
+    @GetMapping("/aprovar/{id}")
+    public String aprovar(@PathVariable("id") Long id){
+        try {
+            propostaOrcamentoService.aprovar(id);
+            return "redirect:/proposta-orcamento/list";
+        } catch (BusinessException e) {
+            return "redirect:/index";
+        }
     }
 
 }
