@@ -11,12 +11,48 @@
         <h4>Horários em [[${diaAgenda.dia}]]</h4>
         <div class="row mt-1 mb-1">
             <div class="col-1 mb-1" th:each="horario : ${diaAgenda.horarios}">
-                <div th:if="${horario.statusHorario.name() == 'FECHADO'}" class="box horario-fechado" th:text="${horario.horaInicio}"></div>
-                <div th:if="${horario.statusHorario.name() == 'ABERTO'}" class="box horario-aberto" th:text="${horario.horaInicio}"></div>
-                <div th:if="${horario.statusHorario.name() == 'RESERVADO'}" class="box horario-reservado" th:text="${horario.horaInicio}"></div>
-            </div>
+                <div th:onclick="abrirHorario([[${horario.id}]])">
+                    <div th:id="'horario-' + ${horario.id}"  th:if="${horario.statusHorario.name() == 'FECHADO'}" class="box horario-fechado" th:text="${horario.horaInicio}"></div>
+                    <div th:id="'horario-' + ${horario.id}"  th:if="${horario.statusHorario.name() == 'ABERTO'}" class="box horario-aberto" th:text="${horario.horaInicio}"></div>
+                    <div th:id="'horario-' + ${horario.id}"  th:if="${horario.statusHorario.name() == 'RESERVADO'}" class="box horario-reservado" th:text="${horario.horaInicio}"></div>
+                </div>
+                </div>
         </div>
+
+        <form id="formHorarios" th:action="@{/artist/salvar-horarios}" method="POST" th:object="${formCadastroHorarios}">
+            <input type="hidden" id="agendaId" name="agendaId" th:value="${agenda.id}">
+            <input type="hidden" id="horariosId" name="horariosId">
+            <button class="mt-2 btn-primary btn" type="submit">Salvar</button>
+        </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var horariosAbertos = new Set();
+
+        function abrirHorario(id) {
+            if (horariosAbertos.has(id)) {
+                horariosAbertos.delete(id);
+                var horario = document.getElementById('horario-'+id)
+                horario.classList.remove('horario-aberto');
+                horario.classList.add('horario-fechado');
+            } else {
+                horariosAbertos.add(id);
+                var horario = document.getElementById('horario-'+id)
+                horario.classList.add('horario-aberto');
+                horario.classList.remove('horario-fechado');            }
+        }
+
+
+        var form = document.getElementById("formHorarios");
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            var horariosIdArray = Array.from(horariosAbertos);
+            document.getElementById("horariosId").value = horariosIdArray.join(",");
+            form.submit();
+        });
+
+    </script>
 </div>
 </body>
 </html>

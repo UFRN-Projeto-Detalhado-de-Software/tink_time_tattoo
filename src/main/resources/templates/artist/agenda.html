@@ -25,6 +25,9 @@
 <body>
   <div th:replace="fragments/sidebar"></div>
   <div class="container">
+    <div th:if="${msgHorariosSalvos}" class="alert alert-success">
+      <p th:text="${msgHorariosSalvos}"></p>
+    </div>
     <h2 class="my-3">Agenda</h2>
     <input type="date" id="datePicker">
     <div id="agendaDiaContainer"></div>
@@ -52,6 +55,7 @@
       })
     });
   });
+
 </script>
 
 </html>

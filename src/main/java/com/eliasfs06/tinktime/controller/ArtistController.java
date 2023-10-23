@@ -2,10 +2,12 @@ package com.eliasfs06.tinktime.controller;
 
 import com.eliasfs06.tinktime.model.*;
 import com.eliasfs06.tinktime.model.dto.ArtistDTO;
+import com.eliasfs06.tinktime.model.dto.FormCadastroHorarios;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.service.AgendaService;
 import com.eliasfs06.tinktime.service.ArtistService;
 import com.eliasfs06.tinktime.service.DiaAgendaService;
+import com.eliasfs06.tinktime.service.HorarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("artist")
@@ -29,7 +33,11 @@ public class ArtistController extends GenericController<Artist> {
     @Autowired
     private AgendaService agendaService;
 
-    @Autowired DiaAgendaService diaAgendaService;
+    @Autowired
+    private DiaAgendaService diaAgendaService;
+
+    @Autowired
+    private HorarioService horarioService;
 
     public ArtistController(GenericRepository<Artist> repository) {
         super(repository);
@@ -94,5 +102,16 @@ public class ArtistController extends GenericController<Artist> {
         model.addAttribute(diaAgenda);
         model.addAttribute(agenda);
         return "/fragments/agenda-dia :: agenda-dia";
+    }
+
+    @PostMapping("/salvar-horarios")
+    public String salvarHorarios(@ModelAttribute FormCadastroHorarios formCadastroHorarios, Model model) {
+        for (int i = 0; i < formCadastroHorarios.getHorariosId().size(); i++){
+            Horario horario = horarioService.get(formCadastroHorarios.getHorariosId().get(i));
+            horario.setStatusHorario(StatusHorario.ABERTO);
+            horarioService.save(horario);
+        }
+        model.addAttribute("msgHorariosSalvos", "Horários salvos com sucesso");
+        return "/artist/agenda";
     }
 }
