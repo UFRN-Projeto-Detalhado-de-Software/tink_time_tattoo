@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta de Tatuagem</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/sidebar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Enviar Proposta de tatuagem</h2>
+            <form th:action="@{/proposta-tatuagem/create}" method="post" th:object="${newTatuagem}">
+                <div class="form-group">
+                    <label for="tatuador">Tatuador:</label>
+                    <select id="tatuador" name="tatuador" class="form-select" th:field="*{tatuador}">
+                        <option value="">-- Selecione --</option>
+                        <option th:each="artista : ${artistas}"
+                                th:value="${artista.user.id}"
+                                th:text="${artista.user.person.name}"></option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('tatuador')}" th:errors="*{tatuador}" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descricao:</label>
+                    <input type="text" id="descricao" name="descricao" class="form-control" th:field="*{descricao}" />
+                    <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("proposta-tatuagem")
+@RequestMapping("/api/proposta-tatuagem")
 public class PropostaTatuagemRestController extends GenericRestController<PropostaTatuagem> {
 
     private final PropostaTatuagemService propostaTatuagemService;

@@ -33,7 +33,6 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/user/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user/register/form").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/index").permitAll()
                         .anyRequest().authenticated()
                 ).formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                         .loginPage("/user/login").permitAll()

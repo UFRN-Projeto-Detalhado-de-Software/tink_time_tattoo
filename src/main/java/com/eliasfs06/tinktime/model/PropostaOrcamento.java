@@ -1,5 +1,6 @@
 package com.eliasfs06.tinktime.model;
 
+import com.eliasfs06.tinktime.model.enums.StatusAprovacao;
 import jakarta.persistence.*;
 import org.springframework.lang.Nullable;
 
@@ -17,16 +18,17 @@ public class PropostaOrcamento extends BaseEntity {
     private Float orcamento;
 
     @Nullable
-    private boolean aprovado;
+    @Enumerated(EnumType.STRING)
+    private StatusAprovacao statusAprovacao;
 
     @Override
     public Long getId() {
-        return null;
+        return this.id;
     }
 
     @Override
     public void setId(Long id) {
-
+        this.id = id;
     }
 
     public PropostaTatuagem getPropostaTatuagem() {
@@ -45,11 +47,12 @@ public class PropostaOrcamento extends BaseEntity {
         this.orcamento = orcamento;
     }
 
-    public boolean getAprovado() {
-        return aprovado;
+    @Nullable
+    public StatusAprovacao getStatusAprovacao() {
+        return statusAprovacao;
     }
 
-    public void setAprovado(boolean aprovado) {
-        this.aprovado = aprovado;
+    public void setStatusAprovacao(@Nullable StatusAprovacao statusAprovacao) {
+        this.statusAprovacao = statusAprovacao;
     }
 }

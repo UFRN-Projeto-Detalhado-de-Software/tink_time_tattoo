@@ -64,4 +64,8 @@ public class UserDTO {
     public void setPerson(PersonDTO person) {
         this.person = person;
     }
+
+    public UserDTO getDTO() {
+        return this;
+    }
 }

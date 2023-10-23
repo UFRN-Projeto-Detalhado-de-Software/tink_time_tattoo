@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Propostas de Tatuagem</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/sidebar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Listar Propostas de Tatuagem</h2>
+        </div>
+
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Descricao</th>
+                    <th>Cliente</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="proposta : ${propostasList}">
+                    <td th:text="${proposta.descricao}"></td>
+                    <td th:text="${proposta.cliente.person.name}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

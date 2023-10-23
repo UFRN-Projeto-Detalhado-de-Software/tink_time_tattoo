@@ -18,7 +18,7 @@ public class PersonDTO {
     public PersonDTO(Person person) {
         this.id = person.getId();
         this.name = person.getName();
-        this.birthDate = person.getBirthDate().toString();
+        if (person.getBirthDate() != null) this.birthDate = person.getBirthDate().toString();
         this.email = person.getEmail();
     }
 
