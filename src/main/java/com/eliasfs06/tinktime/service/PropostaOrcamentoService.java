@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -92,12 +93,21 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
         return propostaOrcamento;
     }
 
+    public PropostaOrcamentoDTO findById(Long id){
+        return new PropostaOrcamentoDTO(Objects.requireNonNull(propostaOrcamentoRepository.findById(id).orElse(null)));
+    }
+
     public List<PropostaOrcamento> listPropostasByClienteID(Long id) {
         Optional<List<PropostaOrcamento>> propostaOrcamentoOptional = propostaOrcamentoRepository.findAllByClienteId(id);
         if (propostaOrcamentoOptional.isPresent()) {
             return propostaOrcamentoOptional.get();
         }
         return new ArrayList<>();
+    }
+
+    public List<PropostaOrcamento> findAllByStatusAprovacaoAndPropostaTatuagemId(Long tatuagemId) {
+        Optional<List<PropostaOrcamento>> propostaOrcamentosAprovados = propostaOrcamentoRepository.findAllByStatusAprovacaoAndPropostaTatuagemId(StatusAprovacao.APROVADO.name(), tatuagemId);
+        return propostaOrcamentosAprovados.orElseGet(ArrayList::new);
     }
 }
 

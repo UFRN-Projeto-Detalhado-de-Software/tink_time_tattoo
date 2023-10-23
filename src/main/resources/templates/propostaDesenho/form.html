@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta de Desenho</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/sidebar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Enviar Proposta de Desenho</h2>
+            <form th:action="@{/proposta-desenho/create}" method="post" th:object="${newDesenho}">
+                <div class="form-group">
+                    <label for="cliente">Cliente:</label>
+                    <select id="cliente" name="Cliente" class="form-select">
+                        <option value="">-- Selecione --</option>
+                        <option th:each="cliente : ${clientes}"
+                                th:value="${cliente.user.id}"
+                                th:text="${cliente.user.person.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tatuagem">Proposta de Tatuagem:</label>
+                    <select id="tatuagem" name="tatuagem" class="form-select" th:field="*{propostaOrcamento.propostaTatuagem}">
+                        <option value="">-- Selecione --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="propostaOrcamento">Proposta de Orçamento:</label>
+                    <select id="propostaOrcamento" name="propostaOrcamento" class="form-select" th:field="*{propostaOrcamento}">
+                        <option value="">-- Selecione --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="desenho">Desenho:</label>
+                    <input type="file" id="desenho" name="desenho" class="form-control" th:field="*{desenho}" required/>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    $('#cliente').change(function () {
+        var clienteId = $(this).val();
+        if (clienteId) {
+            $.get('/proposta-tatuagem/getPropostasByCliente?clienteId=' + clienteId, function (propostas) {
+                var propostaDropdown = $('#tatuagem');
+                propostaDropdown.empty();
+                propostaDropdown.append($('<option>').text('-- Selecione --'));
+                $.each(propostas, function (i, proposta) {
+                    propostaDropdown.append($('<option>').text(proposta.descricao).attr('value', proposta.id));
+                });
+            });
+        }
+    });
+
+    $('#tatuagem').change(function () {
+        var tatuagemId = $(this).val();
+        if (tatuagemId) {
+            $.get('/proposta-orcamento/getOrcamentosAprovadosByTatuagem?tatuagemId=' + tatuagemId, function (propostas) {
+                var propostaOrcamentoDropdown = $('#propostaOrcamento');
+                propostaOrcamentoDropdown.empty();
+                propostaOrcamentoDropdown.append($('<option>').text('-- Selecione --'));
+                $.each(propostas, function (i, proposta) {
+                    propostaOrcamentoDropdown.append($('<option>').text('R$' + proposta.orcamento).attr('value', proposta.id));
+                });
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
