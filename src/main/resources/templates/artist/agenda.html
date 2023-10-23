@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+  .box {
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+  }
+  .horario-fechado{
+    background-color: #d16060;
+  }
+  .horario-reservado{
+    background-color: #e58f4d;
+  }
+  .horario-aberto{
+    background-color: #70cb71;
+  }
+</style>
+<body>
+  <div th:replace="fragments/sidebar"></div>
+  <div class="container">
+    <h2 class="my-3">Agenda</h2>
+    <input type="date" id="datePicker">
+    <div id="agendaDiaContainer"></div>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var datePicker = document.getElementById("datePicker");
+
+    datePicker.addEventListener("change", function() {
+      var chosenDate = datePicker.value;
+
+      $.ajax({
+        url: '/artist/agenda-dia/' + chosenDate,
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          $('#agendaDiaContainer').html(data);
+        },
+        error: function (data) {
+          console.log(data);
+        }
+      })
+    });
+  });
+</script>
+
+</html>
