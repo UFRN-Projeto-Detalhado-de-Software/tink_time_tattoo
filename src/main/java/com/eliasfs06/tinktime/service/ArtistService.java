@@ -1,5 +1,6 @@
 package com.eliasfs06.tinktime.service;
 
+import com.eliasfs06.tinktime.model.Agenda;
 import com.eliasfs06.tinktime.model.Artist;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.ArtistDTO;
@@ -18,6 +19,9 @@ public class ArtistService extends GenericService<Artist>{
     @Autowired
     private ArtistRepository repository;
 
+    @Autowired
+    private AgendaService agendaService;
+
     public ArtistService(GenericRepository<Artist> repository) {
         super(repository);
     }
@@ -30,6 +34,7 @@ public class ArtistService extends GenericService<Artist>{
     public void createArtist(User user) {
         Artist artist = new Artist();
         artist.setUser(user);
+        agendaService.createAgenda(artist);
         save(artist);
     }
 
