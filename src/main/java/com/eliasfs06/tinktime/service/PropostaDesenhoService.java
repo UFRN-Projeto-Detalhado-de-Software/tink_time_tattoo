@@ -54,4 +54,31 @@ public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
         Optional<List<PropostaDesenho>> propostaDesenhos = propostaDesenhoRepository.findAllByClienteId(clienteId);
         return propostaDesenhos.orElseGet(ArrayList::new);
     }
+
+    public PropostaDesenho aprovar(Long id) throws BusinessException {
+        PropostaDesenho propostaDesenho = propostaDesenhoRepository.findById(id).orElse(null);
+        if (propostaDesenho == null) {
+            throw new BusinessException("Proposta de orçamento inválida");
+        }
+
+        propostaDesenho.setStatusAprovacao(StatusAprovacao.APROVADO);
+
+        propostaDesenhoRepository.save(propostaDesenho);
+
+        return propostaDesenho;
+    }
+
+    public PropostaDesenho recusar(Long id) throws BusinessException {
+        PropostaDesenho propostaDesenho = propostaDesenhoRepository.findById(id).orElse(null);
+        if (propostaDesenho == null) {
+            throw new BusinessException("Proposta de orçamento inválida");
+        }
+
+        propostaDesenho.setStatusAprovacao(StatusAprovacao.REPROVADO);
+
+        propostaDesenhoRepository.save(propostaDesenho);
+
+        return propostaDesenho;
+    }
+
 }
