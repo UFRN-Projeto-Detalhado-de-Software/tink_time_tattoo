@@ -6,18 +6,27 @@ import com.eliasfs06.tinktime.model.PropostaOrcamento;
 import com.eliasfs06.tinktime.model.dto.PropostaDesenhoDTO;
 import com.eliasfs06.tinktime.model.enums.StatusAprovacao;
 import com.eliasfs06.tinktime.repository.GenericRepository;
+import com.eliasfs06.tinktime.repository.PropostaDesenhoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
 
     private final PropostaOrcamentoService propostaOrcamentoService;
 
+    private final PropostaDesenhoRepository propostaDesenhoRepository;
+
     public PropostaDesenhoService(GenericRepository<PropostaDesenho> repository,
-                                  PropostaOrcamentoService propostaOrcamentoService) {
+                                  PropostaOrcamentoService propostaOrcamentoService,
+                                  PropostaDesenhoRepository propostaDesenhoRepository) {
         super(repository);
         this.propostaOrcamentoService = propostaOrcamentoService;
+        this.propostaDesenhoRepository = propostaDesenhoRepository;
     }
     @Transactional
     public PropostaDesenho create (PropostaDesenhoDTO propostaDesenhoDTO) throws BusinessException {
@@ -25,7 +34,7 @@ public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
         if (propostaDesenhoDTO.getDesenho() == null) {
             throw new BusinessException("O desenho não pode ser vazio");
         }
-        propostaDesenho.setDesenho(propostaDesenho.getDesenho());
+        propostaDesenho.setDesenho(propostaDesenhoDTO.getDesenho());
 
         if (propostaDesenhoDTO.getPropostaOrcamento() == null) {
             throw new BusinessException("A proposta de orçamento associada não pode ser vazia");
@@ -38,5 +47,11 @@ public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
 
         save(propostaDesenho);
         return propostaDesenho;
+    }
+
+    @Transactional
+    public List<PropostaDesenho> listPropostasByClienteID(Long clienteId) {
+        Optional<List<PropostaDesenho>> propostaDesenhos = propostaDesenhoRepository.findAllByClienteId(clienteId);
+        return propostaDesenhos.orElseGet(ArrayList::new);
     }
 }

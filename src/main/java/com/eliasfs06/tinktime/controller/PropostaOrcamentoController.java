@@ -9,7 +9,6 @@ import com.eliasfs06.tinktime.service.ClientService;
 import com.eliasfs06.tinktime.service.PropostaOrcamentoService;
 import com.eliasfs06.tinktime.service.PropostaTatuagemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -51,21 +50,16 @@ public class PropostaOrcamentoController {
         return modelAndView;
     }
 
-    @GetMapping("/getPropostasByCliente")
-    @ResponseBody
-    public List<PropostaTatuagem> getPropostasByCliente(@RequestParam Long clienteId) {
-        return propostaTatuagemService.listPropostasByClienteID(clienteId);
-    }
-
     @PostMapping("/create")
-    public String create(@RequestParam(value="propostaTatuagem", required = true) String Tatuagem, @RequestParam(value="orcamento", required = true) String Orcamento,
+    public String create(@RequestParam(value="propostaTatuagem", required = true) String tatuagem,
+                         @RequestParam(value="orcamento", required = true) String orcamento,
                          Model model) throws BusinessException {
         try {
-            PropostaTatuagemDTO propostaTatuagem = propostaTatuagemService.findById(Long.parseLong(Tatuagem));
+            PropostaTatuagemDTO propostaTatuagem = propostaTatuagemService.findById(Long.parseLong(tatuagem));
 
             PropostaOrcamentoDTO propostaOrcamentoDTO = new PropostaOrcamentoDTO();
             propostaOrcamentoDTO.setPropostaTatuagem(propostaTatuagem);
-            propostaOrcamentoDTO.setOrcamento(Float.parseFloat(Orcamento));
+            propostaOrcamentoDTO.setOrcamento(Float.parseFloat(orcamento));
 
             propostaOrcamentoService.create(propostaOrcamentoDTO);
 
@@ -73,6 +67,12 @@ public class PropostaOrcamentoController {
             return "redirect:/index";
         }
         return "redirect:/index";
+    }
+
+    @GetMapping("/getOrcamentosAprovadosByTatuagem")
+    @ResponseBody
+    public List<PropostaOrcamento> getOrcamentosAprovadosByTatuagem(@RequestParam Long tatuagemId) {
+        return propostaOrcamentoService.findAllByStatusAprovacaoAndPropostaTatuagemId(tatuagemId);
     }
 
     @GetMapping("/recusar/{id}")

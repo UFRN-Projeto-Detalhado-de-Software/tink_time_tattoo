@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.springframework.lang.Nullable;
 
 @Entity
-@Table(name = "PropostaOrcamento")
+@Table(name = "proposta_orcamento")
 public class PropostaOrcamento extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
