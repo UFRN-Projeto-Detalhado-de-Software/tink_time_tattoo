@@ -53,4 +53,5 @@ public class PropostaDesenho extends BaseEntity {
     public void setStatusAprovacao(StatusAprovacao statusAprovacao) {
         this.statusAprovacao = statusAprovacao;
     }
+
 }

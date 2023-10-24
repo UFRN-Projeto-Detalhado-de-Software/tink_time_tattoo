@@ -22,6 +22,9 @@ public class Artist extends BaseEntity{
     @OneToOne
     private User user;
 
+    @OneToOne
+    private Agenda agenda;
+
     @Override
     public Long getId() {
         return id;
@@ -53,5 +56,13 @@ public class Artist extends BaseEntity{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
     }
 }
