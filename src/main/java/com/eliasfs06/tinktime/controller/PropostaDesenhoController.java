@@ -14,15 +14,18 @@ import com.eliasfs06.tinktime.service.ClientService;
 import com.eliasfs06.tinktime.service.PropostaDesenhoService;
 import com.eliasfs06.tinktime.service.PropostaOrcamentoService;
 import com.eliasfs06.tinktime.service.PropostaTatuagemService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -46,8 +49,17 @@ public class PropostaDesenhoController {
         ModelAndView modelAndView = new ModelAndView();
         User cliente = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<PropostaDesenho> propostaDesenhos = propostaDesenhoService.listPropostasByClienteID(cliente.getId());
+
+        List<String> imagensBase64 = new ArrayList<>();
+        for (PropostaDesenho propostaDesenho : propostaDesenhos) {
+            byte[] imagemByte = propostaDesenho.getDesenho();
+            String imagemBase64 = java.util.Base64.getEncoder().encodeToString(imagemByte);
+            imagensBase64.add(imagemBase64);
+        }
+
         modelAndView.addObject("propostaDesenhos", propostaDesenhos);
-        modelAndView.setViewName("propostaDesenho/form");
+        modelAndView.addObject("imagensBase64", imagensBase64);
+        modelAndView.setViewName("propostaDesenho/list");
         return modelAndView;
     }
 

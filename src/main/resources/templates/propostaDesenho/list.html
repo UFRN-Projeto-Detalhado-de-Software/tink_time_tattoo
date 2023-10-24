@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Propostas de Orçamento</title>
+    <title>Listar Propostas de Desenho</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -12,27 +12,32 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2>Listar Propostas de Orçamento</h2>
+            <h2>Listar Propostas de Desenho</h2>
         </div>
 
         <div>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Descrição</th>
+                    <th>Tatuagem (descrição)</th>
                     <th>Orçamento (R$)</th>
+                    <th>Desenho</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="proposta : ${propostasList}">
-                    <td th:text="${proposta.propostaTatuagem.descricao}"></td>
-                    <td th:text="${proposta.orcamento}"></td>
+                <tr th:each="proposta, i : ${propostaDesenhos}">
+                    <td th:text="${proposta.propostaOrcamento.propostaTatuagem.descricao}"></td>
+                    <td th:text="${proposta.propostaOrcamento.orcamento}"></td>
+                    <td>
+                        <img th:src="'data:image/jpeg;base64,' + ${imagensBase64[i.index]}" alt="Imagem">
+
+                    </td>
                     <td th:text="${proposta.statusAprovacao.getDenominacao()}"></td>
                     <td>
-                        <a th:href="@{/proposta-orcamento/aprovar/{id}(id=${proposta.id})}" class="btn btn-success">Aprovar</a>
-                        <a th:href="@{/proposta-orcamento/recusar/{id}(id=${proposta.id})}" class="btn btn-danger">Recusar</a>
+<!--                        <a th:href="@{/proposta-orcamento/aprovar/{id}(id=${proposta.id})}" class="btn btn-success">Aprovar</a>-->
+<!--                        <a th:href="@{/proposta-orcamento/recusar/{id}(id=${proposta.id})}" class="btn btn-danger">Recusar</a>-->
                     </td>
                 </tr>
                 </tbody>

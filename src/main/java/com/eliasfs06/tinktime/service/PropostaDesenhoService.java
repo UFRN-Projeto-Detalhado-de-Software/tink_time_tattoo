@@ -34,7 +34,7 @@ public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
         if (propostaDesenhoDTO.getDesenho() == null) {
             throw new BusinessException("O desenho não pode ser vazio");
         }
-        propostaDesenho.setDesenho(propostaDesenho.getDesenho());
+        propostaDesenho.setDesenho(propostaDesenhoDTO.getDesenho());
 
         if (propostaDesenhoDTO.getPropostaOrcamento() == null) {
             throw new BusinessException("A proposta de orçamento associada não pode ser vazia");
@@ -49,6 +49,7 @@ public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
         return propostaDesenho;
     }
 
+    @Transactional
     public List<PropostaDesenho> listPropostasByClienteID(Long clienteId) {
         Optional<List<PropostaDesenho>> propostaDesenhos = propostaDesenhoRepository.findAllByClienteId(clienteId);
         return propostaDesenhos.orElseGet(ArrayList::new);
