@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AgendaService extends GenericService<Agenda> {
@@ -77,7 +78,13 @@ public class AgendaService extends GenericService<Agenda> {
 
         for(DiaAgenda diaAgenda : diaAgendaPossiveis){
             if(numeroSessoes > 1){
-                List<Horario> horarios = diaAgenda.getHorarios();
+
+                List<Horario> horariosAgenda = diaAgenda.getHorarios();
+                horariosAgenda.removeIf(horario -> horario.getStatusHorario() != StatusHorario.ABERTO);
+                List<Horario> horarios = horariosAgenda.stream()
+                        .sorted(Comparator.comparing(Horario::getId))
+                        .collect(Collectors.toList());
+
                 for(int i = 0; i < horarios.size(); i++){
                     if(i+1 < horarios.size() &&
                             horarios.get(i).getStatusHorario() == StatusHorario.ABERTO &&

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -44,7 +45,12 @@ public class PropostaTatuagemController {
     public ModelAndView listTatuagens(){
         ModelAndView modelAndView = new ModelAndView();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<PropostaTatuagem> propostasList = propostaTatuagemService.listPropostasByTatuadorID(user.getId());
+        List<PropostaTatuagem> propostasList = new ArrayList<>();
+        if(user.getUserRole() == UserRole.ARTIST) {
+            propostasList = propostaTatuagemService.listPropostasByTatuadorID(user.getId());
+        } else {
+            propostasList = propostaTatuagemService.listPropostasByClienteID(user.getId());
+        }
         modelAndView.addObject("propostasList", propostasList);
         modelAndView.setViewName("propostaTatuagem/list");
         return modelAndView;

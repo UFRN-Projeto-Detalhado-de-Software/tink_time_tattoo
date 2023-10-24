@@ -21,6 +21,9 @@
         <a class="nav-link" th:href="@{/proposta-tatuagem/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Enviar Propostas de Tatuagem</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" th:href="@{/proposta-tatuagem/list}" sec:authorize="hasAnyRole('ROLE_USER')">Verificar Propostas de Tatuagem</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" th:href="@{/proposta-orcamento/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Verificar Propostas de Orçamento</a>
       </li>
       <li class="nav-item">

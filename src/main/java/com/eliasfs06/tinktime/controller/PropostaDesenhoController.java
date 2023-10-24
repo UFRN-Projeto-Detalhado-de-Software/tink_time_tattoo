@@ -2,10 +2,7 @@ package com.eliasfs06.tinktime.controller;
 
 import ch.qos.logback.core.model.Model;
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
-import com.eliasfs06.tinktime.model.Client;
-import com.eliasfs06.tinktime.model.PropostaDesenho;
-import com.eliasfs06.tinktime.model.PropostaOrcamento;
-import com.eliasfs06.tinktime.model.User;
+import com.eliasfs06.tinktime.model.*;
 import com.eliasfs06.tinktime.model.dto.PropostaDesenhoDTO;
 import com.eliasfs06.tinktime.model.dto.PropostaOrcamentoDTO;
 import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
@@ -90,6 +87,10 @@ public class PropostaDesenhoController {
             propostaDesenhoDTO.setStatusAprovacao(StatusAprovacao.PENDENTE.name());
 
             propostaDesenhoService.create(propostaDesenhoDTO);
+
+            PropostaTatuagem proposta = propostaDesenho.getPropostaOrcamento().getPropostaTatuagem();
+            proposta.setNumeroSessoes(propostaDesenho.getNumeroSessoes());
+            propostaTatuagemService.save(proposta);
 
         } catch (BusinessException e) {
             return "redirect:/index";
