@@ -97,4 +97,24 @@ public class PropostaDesenhoController {
         return "redirect:/index";
     }
 
+    @GetMapping("/recusar/{id}")
+    public String recusar(@PathVariable("id") Long id){
+        try {
+            propostaDesenhoService.recusar(id);
+            return "redirect:/proposta-desenho/list";
+        } catch (BusinessException e) {
+            return "redirect:/index";
+        }
+    }
+
+    @GetMapping("/aprovar/{id}")
+    public String aprovar(@PathVariable("id") Long id){
+        try {
+            propostaDesenhoService.aprovar(id);
+            return "redirect:/proposta-desenho/list";
+        } catch (BusinessException e) {
+            return "redirect:/index";
+        }
+    }
+
 }
