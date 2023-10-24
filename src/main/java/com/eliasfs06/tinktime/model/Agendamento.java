@@ -2,7 +2,9 @@ package com.eliasfs06.tinktime.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Agendamento extends BaseEntity {
@@ -10,8 +12,8 @@ public class Agendamento extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private Horario horario;
+    @OneToMany
+    private List<Horario> horarios = new ArrayList<>();
 
     private Date data;
 
@@ -25,12 +27,12 @@ public class Agendamento extends BaseEntity {
         this.id = id;
     }
 
-    public Horario getHorario() {
-        return horario;
+    public List<Horario> getHorarios() {
+        return horarios;
     }
 
-    public void setHorario(Horario horario) {
-        this.horario = horario;
+    public void setHorarios(List<Horario> horarios) {
+        this.horarios = horarios;
     }
 
     public Date getData() {

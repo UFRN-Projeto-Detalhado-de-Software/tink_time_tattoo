@@ -22,6 +22,9 @@ public class PropostaTatuagem extends BaseEntity {
     @OneToOne
     private Agendamento agendamento;
 
+    private Integer numeroSessoes;
+
+
     @Override
     public Long getId() {
         return id;
@@ -61,5 +64,13 @@ public class PropostaTatuagem extends BaseEntity {
 
     public void setAgendamento(Agendamento agendamento) {
         this.agendamento = agendamento;
+    }
+
+    public Integer getNumeroSessoes() {
+        return numeroSessoes;
+    }
+
+    public void setNumeroSessoes(Integer numeroSessoes) {
+        this.numeroSessoes = numeroSessoes;
     }
 }

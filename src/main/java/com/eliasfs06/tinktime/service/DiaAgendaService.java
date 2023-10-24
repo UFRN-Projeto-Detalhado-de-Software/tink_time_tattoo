@@ -1,7 +1,9 @@
 package com.eliasfs06.tinktime.service;
 
 import com.eliasfs06.tinktime.model.Agenda;
+import com.eliasfs06.tinktime.model.Artist;
 import com.eliasfs06.tinktime.model.DiaAgenda;
+import com.eliasfs06.tinktime.model.Horario;
 import com.eliasfs06.tinktime.repository.DiaAgendaRepossitory;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DiaAgendaService extends GenericService<DiaAgenda> {
@@ -34,5 +37,9 @@ public class DiaAgendaService extends GenericService<DiaAgenda> {
             throw new RuntimeException(e);
         }
         return diaAgendaRepossitory.findByDia(agenda.getId(), dia);
+    }
+
+    public List<DiaAgenda> findDiaAgendaComHorariosAbertoByArtist(Artist artist) {
+        return diaAgendaRepossitory.findDiaAgendaComHorariosAbertoByArtist(artist.getId());
     }
 }

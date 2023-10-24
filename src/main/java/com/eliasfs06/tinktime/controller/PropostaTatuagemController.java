@@ -1,18 +1,19 @@
 package com.eliasfs06.tinktime.controller;
 
-import ch.qos.logback.core.model.Model;
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
-import com.eliasfs06.tinktime.model.Artist;
-import com.eliasfs06.tinktime.model.PropostaTatuagem;
-import com.eliasfs06.tinktime.model.User;
+import com.eliasfs06.tinktime.model.*;
+import com.eliasfs06.tinktime.model.dto.ArtistDTO;
+import com.eliasfs06.tinktime.model.dto.HorariosTatuagem;
 import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
 import com.eliasfs06.tinktime.model.dto.UserDTO;
+import com.eliasfs06.tinktime.service.AgendaService;
 import com.eliasfs06.tinktime.service.ArtistService;
 import com.eliasfs06.tinktime.service.PropostaTatuagemService;
 import com.eliasfs06.tinktime.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,6 +31,9 @@ public class PropostaTatuagemController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AgendaService agendaService;
 
     @GetMapping("/list")
     public ModelAndView listTatuagens(){
@@ -75,5 +79,19 @@ public class PropostaTatuagemController {
     @ResponseBody
     public List<PropostaTatuagem> getPropostasByCliente(@RequestParam Long clienteId) {
         return propostaTatuagemService.listPropostasByClienteID(clienteId);
+    }
+
+    @GetMapping("/agendar-tatuagem/{id}")
+    public String agendarTatuagem(@PathVariable Long id, Model model){
+        PropostaTatuagem propostaTatuagem = propostaTatuagemService.get(id);
+        ArtistDTO artistdto = artistService.findByUser(propostaTatuagem.getTatuador());
+        Artist artist = artistdto.toArtist();
+        Agenda agenda = agendaService.findByArtist(artist);
+
+        List<HorariosTatuagem> horariosDisponveis = agendaService.sugerirHorarios(artist, propostaTatuagem.getNumeroSessoes());
+        List<HorariosTatuagem> horariosDisponiveisFormatados = agendaService.formatarHorariosDisponiveis(horariosDisponveis, propostaTatuagem.getNumeroSessoes());
+
+        model.addAttribute("horarios", horariosDisponiveisFormatados);
+        return "/propostaTatuagem/agendar-tatuagem";
     }
 }
