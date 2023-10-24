@@ -20,6 +20,8 @@ public class PropostaDesenho extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private StatusAprovacao statusAprovacao;
 
+    private Integer numeroSessoes;
+
     @Override
     public Long getId() {
         return id;
@@ -54,4 +56,11 @@ public class PropostaDesenho extends BaseEntity {
         this.statusAprovacao = statusAprovacao;
     }
 
+    public Integer getNumeroSessoes() {
+        return numeroSessoes;
+    }
+
+    public void setNumeroSessoes(Integer numeroSessoes) {
+        this.numeroSessoes = numeroSessoes;
+    }
 }
