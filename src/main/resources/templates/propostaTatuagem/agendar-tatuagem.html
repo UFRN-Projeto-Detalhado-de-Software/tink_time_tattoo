@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agendar tatuagem</title>
+  <title>Agendar</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -14,10 +14,15 @@
     <div class="col-3" th:each="dia : ${horarios}">
       <div class="card m-2">
         <div class="card-body">
-          <form>
-            <div>Dia [[${dia.diaAgenda.dia}]] </div>
+           <form th:action="@{/proposta-tatuagem/agendar-tatuagem/{propostaId}/{agendaId}(propostaId=${propostaId}, agendaId=${agendaId})}"
+                 method="post" th:object="${agendamento}">
+            <input type="hidden" name="diaAgenda" th:value="${dia.diaAgenda.dia}">
+            <input type="hidden" name="horaIncio" th:value="${dia.horarios.get(0).horaInicio}">
+            <input type="hidden" name="horaFim" th:value="${dia.horarios.get(dia.horarios.size() - 1).horaFim}">
+
+            <div> Dia [[${dia.diaAgenda.dia}]]</div>
             <div>[[${dia.horarios.get(0).horaInicio}]] às [[${dia.horarios.get(dia.horarios.size() - 1).horaFim}]]</div>
-            <button class="my-2 btn btn-primary" th:onclick="escolherHorario([[${dia}]])">Escolher</button>
+            <button class="my-2 btn btn-primary" type="submit">Escolher</button>
           </form>
         </div>
       </div>

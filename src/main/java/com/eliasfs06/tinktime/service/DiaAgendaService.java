@@ -42,4 +42,8 @@ public class DiaAgendaService extends GenericService<DiaAgenda> {
     public List<DiaAgenda> findDiaAgendaComHorariosAbertoByArtist(Artist artist) {
         return diaAgendaRepossitory.findDiaAgendaComHorariosAbertoByArtist(artist.getId());
     }
+
+    public DiaAgenda findByDiaEAgenda(Long id, LocalDate diaAgenda) {
+        return diaAgendaRepossitory.findByDiaEAgenda(id, diaAgenda);
+    }
 }

@@ -26,4 +26,10 @@ public interface DiaAgendaRepossitory extends GenericRepository<com.eliasfs06.ti
             "join horario h on dah.horarios_id = h.id "+
             "where h.status_horario = 'ABERTO' and atr.id = ?1", nativeQuery = true)
     List<DiaAgenda> findDiaAgendaComHorariosAbertoByArtist(Long artist);
+
+    @Query(value = "SELECT dia.* FROM agenda a " +
+            "JOIN agenda_dias_agenda adas ON a.id = adas.agenda_id " +
+            "JOIN dia_agenda dia ON dia.id = adas.dias_agenda_id " +
+            "WHERE a.id = ?1 AND dia.dia = ?2 ", nativeQuery = true)
+    DiaAgenda findByDiaEAgenda(Long id, LocalDate diaAgenda);
 }

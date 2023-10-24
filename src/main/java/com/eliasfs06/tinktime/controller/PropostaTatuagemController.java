@@ -2,14 +2,8 @@ package com.eliasfs06.tinktime.controller;
 
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.*;
-import com.eliasfs06.tinktime.model.dto.ArtistDTO;
-import com.eliasfs06.tinktime.model.dto.HorariosTatuagem;
-import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
-import com.eliasfs06.tinktime.model.dto.UserDTO;
-import com.eliasfs06.tinktime.service.AgendaService;
-import com.eliasfs06.tinktime.service.ArtistService;
-import com.eliasfs06.tinktime.service.PropostaTatuagemService;
-import com.eliasfs06.tinktime.service.UserService;
+import com.eliasfs06.tinktime.model.dto.*;
+import com.eliasfs06.tinktime.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -34,6 +30,15 @@ public class PropostaTatuagemController {
 
     @Autowired
     private AgendaService agendaService;
+
+    @Autowired
+    private DiaAgendaService diaAgendaService;
+
+    @Autowired
+    private HorarioService horarioService;
+
+    @Autowired
+    private AgendamentoService agendamentoService;
 
     @GetMapping("/list")
     public ModelAndView listTatuagens(){
@@ -81,7 +86,7 @@ public class PropostaTatuagemController {
         return propostaTatuagemService.listPropostasByClienteID(clienteId);
     }
 
-    @GetMapping("/agendar-tatuagem/{id}")
+    @GetMapping("/buscar-horarios/{id}")
     public String agendarTatuagem(@PathVariable Long id, Model model){
         PropostaTatuagem propostaTatuagem = propostaTatuagemService.get(id);
         ArtistDTO artistdto = artistService.findByUser(propostaTatuagem.getTatuador());
@@ -92,6 +97,33 @@ public class PropostaTatuagemController {
         List<HorariosTatuagem> horariosDisponiveisFormatados = agendaService.formatarHorariosDisponiveis(horariosDisponveis, propostaTatuagem.getNumeroSessoes());
 
         model.addAttribute("horarios", horariosDisponiveisFormatados);
+        model.addAttribute("agendaId", agenda.getId());
+        model.addAttribute("propostaId", id);
+        model.addAttribute("agendamento", new AgendamentoDto());
         return "/propostaTatuagem/agendar-tatuagem";
+    }
+
+    @PostMapping("/agendar-tatuagem/{idProposta}/{idAgenda}")
+    public String agendarTatuagem(@PathVariable Long idProposta, @PathVariable Long idAgenda, @ModelAttribute AgendamentoDto horariosTatuagem){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dia = LocalDate.parse(horariosTatuagem.getDiaAgenda(), formatter);
+        DiaAgenda diaAgenda = diaAgendaService.findByDiaEAgenda(idAgenda, dia);
+        List<Horario> horarios = horarioService.filtrarHorarios(diaAgenda, horariosTatuagem.getHoraIncio(), horariosTatuagem.getHoraFim());
+        for(Horario horario : horarios){
+            horario.setStatusHorario(StatusHorario.RESERVADO);
+            horarioService.save(horario);
+        }
+
+        Agendamento agendamento = new Agendamento();
+        agendamento.setHorarios(horarios);
+        agendamento.setData(diaAgenda.getDia());
+        agendamentoService.save(agendamento);
+
+        PropostaTatuagem propostaTatuagem = propostaTatuagemService.get(idProposta);
+        propostaTatuagem.setAgendamento(agendamento);
+        propostaTatuagemService.save(propostaTatuagem);
+
+        return "redirect:/index";
     }
 }

@@ -3,7 +3,7 @@ package com.eliasfs06.tinktime.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -15,7 +15,7 @@ public class Agendamento extends BaseEntity {
     @OneToMany
     private List<Horario> horarios = new ArrayList<>();
 
-    private Date data;
+    private LocalDate data;
 
     @Override
     public Long getId() {
@@ -35,11 +35,11 @@ public class Agendamento extends BaseEntity {
         this.horarios = horarios;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 }
