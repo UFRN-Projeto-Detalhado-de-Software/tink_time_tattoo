@@ -3,6 +3,8 @@ package com.eliasfs06.tinktime.service;
 import com.eliasfs06.tinktime.model.Artist;
 import com.eliasfs06.tinktime.model.DiaAgenda;
 import com.eliasfs06.tinktime.model.Horario;
+import com.eliasfs06.tinktime.model.StatusHorario;
+import com.eliasfs06.tinktime.model.dto.FormCadastroHorarios;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.HorarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +40,13 @@ public class HorarioService extends GenericService<Horario> {
         }
 
         return horariosFiltrados;
+    }
+
+    public void saveFromForm(FormCadastroHorarios formCadastroHorarios){
+        for (int i = 0; i < formCadastroHorarios.getHorariosId().size(); i++){
+            Horario horario = get(formCadastroHorarios.getHorariosId().get(i));
+            horario.setStatusHorario(StatusHorario.ABERTO);
+            save(horario);
+        }
     }
 }

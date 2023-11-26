@@ -81,4 +81,14 @@ public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
         return propostaDesenho;
     }
 
+    public List<String> listImagensBase64(List<PropostaDesenho> propostaDesenhos) {
+        List<String> imagensBase64 = new ArrayList<>();
+        for (PropostaDesenho propostaDesenho : propostaDesenhos) {
+            byte[] imagemByte = propostaDesenho.getDesenho();
+            String imagemBase64 = java.util.Base64.getEncoder().encodeToString(imagemByte);
+            imagensBase64.add(imagemBase64);
+        }
+        return imagensBase64;
+    }
+
 }

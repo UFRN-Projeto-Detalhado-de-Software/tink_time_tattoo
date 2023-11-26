@@ -56,12 +56,7 @@ public class PropostaOrcamentoController {
                          Model model) throws BusinessException {
         try {
             PropostaTatuagemDTO propostaTatuagem = propostaTatuagemService.findById(Long.parseLong(tatuagem));
-
-            PropostaOrcamentoDTO propostaOrcamentoDTO = new PropostaOrcamentoDTO();
-            propostaOrcamentoDTO.setPropostaTatuagem(propostaTatuagem);
-            propostaOrcamentoDTO.setOrcamento(Float.parseFloat(orcamento));
-
-            propostaOrcamentoService.create(propostaOrcamentoDTO);
+            propostaOrcamentoService.create(new PropostaOrcamentoDTO(propostaTatuagem, Float.parseFloat(orcamento)));
 
         } catch (BusinessException e) {
             return "redirect:/index";

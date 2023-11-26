@@ -3,6 +3,7 @@ package com.eliasfs06.tinktime.service;
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.PropostaTatuagem;
 import com.eliasfs06.tinktime.model.User;
+import com.eliasfs06.tinktime.model.UserRole;
 import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.PropostaTatuagemRepository;
@@ -66,6 +67,16 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
         if (propostas.isPresent())
             return propostas.get();
         return new ArrayList<>();
+    }
+
+    public List<PropostaTatuagem> getPropostasByRole(User user){
+        List<PropostaTatuagem> propostasList = new ArrayList<>();
+        if(user.getUserRole() == UserRole.ARTIST) {
+            propostasList = listPropostasByTatuadorID(user.getId());
+        } else {
+            propostasList = listPropostasByClienteID(user.getId());
+        }
+        return propostasList;
     }
 
 }

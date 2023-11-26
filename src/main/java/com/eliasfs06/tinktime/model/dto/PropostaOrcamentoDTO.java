@@ -18,6 +18,11 @@ public class PropostaOrcamentoDTO {
         this.orcamento = propostaOrcamento.getOrcamento();
     }
 
+    public PropostaOrcamentoDTO(PropostaTatuagemDTO propostaTatuagem, Float orcamento) {
+        this.propostaTatuagem = propostaTatuagem;
+        this.orcamento = orcamento;
+    }
+
     public Long getId() {
         return id;
     }
