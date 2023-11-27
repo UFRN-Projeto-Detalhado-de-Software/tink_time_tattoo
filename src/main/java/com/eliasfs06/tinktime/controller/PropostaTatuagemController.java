@@ -45,12 +45,7 @@ public class PropostaTatuagemController {
     public ModelAndView listTatuagens(){
         ModelAndView modelAndView = new ModelAndView();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<PropostaTatuagem> propostasList = new ArrayList<>();
-        if(user.getUserRole() == UserRole.ARTIST) {
-            propostasList = propostaTatuagemService.listPropostasByTatuadorID(user.getId());
-        } else {
-            propostasList = propostaTatuagemService.listPropostasByClienteID(user.getId());
-        }
+        List<PropostaTatuagem> propostasList = propostaTatuagemService.getPropostasByRole(user);
         modelAndView.addObject("propostasList", propostasList);
         modelAndView.setViewName("propostaTatuagem/list");
         return modelAndView;
@@ -73,13 +68,7 @@ public class PropostaTatuagemController {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User artist = userService.findByID(Long.parseLong(Tatuador));
-            UserDTO userdto = new UserDTO(user);
-            UserDTO artistdto = new UserDTO(artist);
-            PropostaTatuagemDTO propostaTatuagemDTO = new PropostaTatuagemDTO();
-            propostaTatuagemDTO.setCliente(userdto);
-            propostaTatuagemDTO.setTatuador(artistdto);
-            propostaTatuagemDTO.setDescricao(Descricao);
-            propostaTatuagemService.create(propostaTatuagemDTO);
+            propostaTatuagemService.create(new PropostaTatuagemDTO(new UserDTO(user), new UserDTO(artist), Descricao));
         } catch (BusinessException e) {
             return "redirect:/index";
         }

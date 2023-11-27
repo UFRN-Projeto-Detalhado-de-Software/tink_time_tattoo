@@ -22,6 +22,12 @@ public class PropostaTatuagemDTO {
         this.descricao = propostaTatuagem.getDescricao();
     }
 
+    public PropostaTatuagemDTO(UserDTO cliente, UserDTO tatuador, String descricao) {
+        this.cliente = cliente;
+        this.tatuador = tatuador;
+        this.descricao = descricao;
+    }
+
     public Long getId() {
         return id;
     }

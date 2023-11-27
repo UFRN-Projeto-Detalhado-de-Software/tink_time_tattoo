@@ -29,6 +29,9 @@ public class DiaAgendaService extends GenericService<DiaAgenda> {
     }
 
     public DiaAgenda findByDia(Agenda agenda, String data) {
+        if (agenda == null || data == null) {
+            return null;
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dia;
         try {

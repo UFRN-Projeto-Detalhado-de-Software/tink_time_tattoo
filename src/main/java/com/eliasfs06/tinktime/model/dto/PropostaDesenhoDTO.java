@@ -22,6 +22,12 @@ public class PropostaDesenhoDTO {
         this.statusAprovacao = propostaDesenho.getStatusAprovacao().getDenominacao();
     }
 
+    public PropostaDesenhoDTO(byte[] desenho, PropostaOrcamentoDTO propostaOrcamento, String statusAprovacao) {
+        this.desenho = desenho;
+        this.propostaOrcamento = propostaOrcamento;
+        this.statusAprovacao = statusAprovacao;
+    }
+
     public Long getId() {
         return id;
     }

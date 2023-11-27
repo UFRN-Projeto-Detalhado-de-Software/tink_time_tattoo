@@ -59,7 +59,6 @@ public class ArtistController extends GenericController<Artist> {
 
     @PostMapping("/profile")
     public String saveProfile(@ModelAttribute("artist") @Valid ArtistDTO artist, BindingResult br, Model model){
-
         if(br.hasErrors()){
             return "artist/profile";
         }
@@ -74,9 +73,7 @@ public class ArtistController extends GenericController<Artist> {
     @GetMapping("/list")
     public ModelAndView listArtists(){
         ModelAndView modelAndView = new ModelAndView();
-
         List<Artist> artistList = artistService.listActiveArtists();
-
         modelAndView.addObject("artistList", artistList);
         modelAndView.setViewName("artist/list");
         return modelAndView;
@@ -106,11 +103,7 @@ public class ArtistController extends GenericController<Artist> {
 
     @PostMapping("/salvar-horarios")
     public String salvarHorarios(@ModelAttribute FormCadastroHorarios formCadastroHorarios, Model model) {
-        for (int i = 0; i < formCadastroHorarios.getHorariosId().size(); i++){
-            Horario horario = horarioService.get(formCadastroHorarios.getHorariosId().get(i));
-            horario.setStatusHorario(StatusHorario.ABERTO);
-            horarioService.save(horario);
-        }
+        horarioService.saveFromForm(formCadastroHorarios);
         model.addAttribute("msgHorariosSalvos", "Horários salvos com sucesso");
         return "/artist/agenda";
     }
