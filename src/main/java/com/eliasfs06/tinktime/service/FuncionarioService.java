@@ -33,7 +33,7 @@ public class FuncionarioService extends GenericService<Funcionario> {
     }
 
     public void createFuncionario(User user) {
-        FuncionarioFactory funcionarioFactory = new TatuadorFactory();
+        funcionarioFactory = new TatuadorFactory();
         Funcionario funcionario = funcionarioFactory.createFuncionario();
         funcionario.setUser(user);
         agendaService.createAgenda(funcionario);
