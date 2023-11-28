@@ -29,7 +29,6 @@ public class AgendaService extends GenericService<Agenda> {
         super(repository);
     }
 
-    @Transactional
     public void createAgenda(Funcionario funcionario) {
         Agenda agenda = new Agenda();
         funcionario.setAgenda(agenda);
@@ -38,7 +37,6 @@ public class AgendaService extends GenericService<Agenda> {
 
     @Transactional
     public DiaAgenda createDiaAgenda(Agenda agenda, LocalDate dia){
-        agenda = new Agenda();
         DiaAgenda diaAgenda = new DiaAgenda();
         diaAgenda.setDia(dia);
         agenda.getDiasAgenda().add(diaAgenda);

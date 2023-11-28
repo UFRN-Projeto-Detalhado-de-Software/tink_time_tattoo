@@ -31,7 +31,6 @@ public class FuncionarioService extends GenericService<Funcionario> {
         return new FuncionarioDTO(funcionario);
     }
 
-    @Transactional
     public void createFuncionario(User user) {
         Funcionario funcionario = new Funcionario();
         funcionario.setUser(user);
