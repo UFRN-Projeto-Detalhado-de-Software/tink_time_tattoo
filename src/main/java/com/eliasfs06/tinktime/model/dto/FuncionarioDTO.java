@@ -1,8 +1,6 @@
 package com.eliasfs06.tinktime.model.dto;
 
-import com.eliasfs06.tinktime.model.Agenda;
-import com.eliasfs06.tinktime.model.Funcionario;
-import com.eliasfs06.tinktime.model.User;
+import com.eliasfs06.tinktime.model.*;
 import jakarta.validation.constraints.NotBlank;
 
 public class FuncionarioDTO {
@@ -21,7 +19,8 @@ public class FuncionarioDTO {
     }
 
     public Funcionario toFuncionario(){
-        Funcionario funcionario = new Funcionario();
+        FuncionarioFactory factory = new TatuadorFactory();
+        Funcionario funcionario = factory.createFuncionario();
         funcionario.setAboutMe(this.aboutMe);
         funcionario.setAgenda(new Agenda());
         funcionario.setUser(this.user);

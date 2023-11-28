@@ -2,10 +2,8 @@ package com.eliasfs06.tinktime.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
-public class Funcionario extends BaseEntity {
+public abstract class Funcionario extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
