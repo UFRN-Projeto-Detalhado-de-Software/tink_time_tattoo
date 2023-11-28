@@ -1,7 +1,6 @@
 package com.eliasfs06.tinktime.service;
 
-import com.eliasfs06.tinktime.model.Funcionario;
-import com.eliasfs06.tinktime.model.User;
+import com.eliasfs06.tinktime.model.*;
 import com.eliasfs06.tinktime.model.dto.FuncionarioDTO;
 import com.eliasfs06.tinktime.model.dto.UserDTO;
 import com.eliasfs06.tinktime.repository.FuncionaroRepository;
@@ -22,6 +21,8 @@ public class FuncionarioService extends GenericService<Funcionario> {
     @Autowired
     private AgendaService agendaService;
 
+    private FuncionarioFactory funcionarioFactory;
+
     public FuncionarioService(GenericRepository<Funcionario> repository) {
         super(repository);
     }
@@ -32,7 +33,8 @@ public class FuncionarioService extends GenericService<Funcionario> {
     }
 
     public void createFuncionario(User user) {
-        Funcionario funcionario = new Funcionario();
+        FuncionarioFactory funcionarioFactory = new TatuadorFactory();
+        Funcionario funcionario = funcionarioFactory.createFuncionario();
         funcionario.setUser(user);
         agendaService.createAgenda(funcionario);
         save(funcionario);
