@@ -15,35 +15,35 @@
         <a class="nav-link" th:href="@{/index}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/artist/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Listar Artistas</a>
+        <a class="nav-link" th:href="@{/funcionario/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')">Listar Funcionários</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/proposta-tatuagem/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Enviar Propostas de Tatuagem</a>
+        <a class="nav-link" th:href="@{/proposta-tatuagem/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')">Enviar Propostas de Tatuagem</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/proposta-tatuagem/list}" sec:authorize="hasAnyRole('ROLE_USER')">Verificar Propostas de Tatuagem</a>
+        <a class="nav-link" th:href="@{/proposta-tatuagem/list}" sec:authorize="hasAnyRole('ROLE_CLIENT')">Verificar Propostas de Tatuagem</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/proposta-orcamento/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Verificar Propostas de Orçamento</a>
+        <a class="nav-link" th:href="@{/proposta-orcamento/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')">Verificar Propostas de Orçamento</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/proposta-desenho/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">Verificar Propostas de desenho</a>
+        <a class="nav-link" th:href="@{/proposta-desenho/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')">Verificar Propostas de desenho</a>
       </li>
 
-      <!-- Funções para os artistas -->
+      <!-- Funções para os funcionários -->
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/proposta-tatuagem/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ARTIST')">Verificar Propostas de Tatuagem</a>
+        <a class="nav-link" th:href="@{/proposta-tatuagem/list}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')">Verificar Propostas de Tatuagem</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/proposta-orcamento/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ARTIST')">Enviar Propostas de Orçamento</a>
+        <a class="nav-link" th:href="@{/proposta-orcamento/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')">Enviar Propostas de Orçamento</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/proposta-desenho/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ARTIST')">Enviar Propostas de desenho</a>
+        <a class="nav-link" th:href="@{/proposta-desenho/form}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')">Enviar Propostas de desenho</a>
       <li>
-        <a class="nav-link" th:href="@{/artist/profile}" sec:authorize="hasAnyRole('ROLE_ARTIST')">About Me</a>
+        <a class="nav-link" th:href="@{/funcionario/profile}" sec:authorize="hasAnyRole('ROLE_EMPLOYEE')">Sobre mim</a>
       </li>
       <li>
-        <a class="nav-link" th:href="@{/artist/agenda}" sec:authorize="hasAnyRole('ROLE_ARTIST')">Agenda</a>
+        <a class="nav-link" th:href="@{/funcionario/agenda}" sec:authorize="hasAnyRole('ROLE_EMPLOYEE')">Agenda</a>
       </li>
       <li>
         <a class="nav-link" th:href="@{/user/logout}">Log out</a>

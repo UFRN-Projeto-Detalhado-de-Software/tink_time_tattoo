@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,7 +23,7 @@ public class PropostaTatuagemController {
     private PropostaTatuagemService propostaTatuagemService;
 
     @Autowired
-    private ArtistService artistService;
+    private FuncionarioService funcionarioService;
 
     @Autowired
     private UserService userService;
@@ -55,20 +54,20 @@ public class PropostaTatuagemController {
     @GetMapping("/form")
     public ModelAndView form() {
         ModelAndView modelAndView = new ModelAndView();
-        List<Artist> artistas = artistService.listActiveArtists();
+        List<Funcionario> funcionarios = funcionarioService.listActiveFuncionarios();
         modelAndView.addObject("newTatuagem", new PropostaTatuagemDTO());
-        modelAndView.addObject("artistas", artistas);
+        modelAndView.addObject("funcionarios", funcionarios);
         modelAndView.setViewName("propostaTatuagem/form");
         return modelAndView;
     }
 
     @PostMapping("/create")
-    public String create(@RequestParam(value="descricao", required = true) String Descricao, @RequestParam(value="tatuador", required = true) String Tatuador,
+    public String create(@RequestParam(value="descricao", required = true) String Descricao, @RequestParam(value="tatuador", required = true) String Funcionario,
                          Model model) throws BusinessException {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User artist = userService.findByID(Long.parseLong(Tatuador));
-            propostaTatuagemService.create(new PropostaTatuagemDTO(new UserDTO(user), new UserDTO(artist), Descricao));
+            User funcionario = userService.findByID(Long.parseLong(Funcionario));
+            propostaTatuagemService.create(new PropostaTatuagemDTO(new UserDTO(user), new UserDTO(funcionario), Descricao));
         } catch (BusinessException e) {
             return "redirect:/index";
         }
@@ -84,11 +83,11 @@ public class PropostaTatuagemController {
     @GetMapping("/buscar-horarios/{id}")
     public String agendarTatuagem(@PathVariable Long id, Model model){
         PropostaTatuagem propostaTatuagem = propostaTatuagemService.get(id);
-        ArtistDTO artistdto = artistService.findByUser(propostaTatuagem.getTatuador());
-        Artist artist = artistdto.toArtist();
-        Agenda agenda = agendaService.findByArtist(artist);
+        FuncionarioDTO funcionarioDTO = funcionarioService.findByUser(propostaTatuagem.getTatuador());
+        Funcionario funcionario = funcionarioDTO.toFuncionario();
+        Agenda agenda = agendaService.findByFuncionario(funcionario);
 
-        List<HorariosTatuagem> horariosDisponveis = agendaService.sugerirHorarios(artist, propostaTatuagem.getNumeroSessoes());
+        List<HorariosTatuagem> horariosDisponveis = agendaService.sugerirHorarios(funcionario, propostaTatuagem.getNumeroSessoes());
         List<HorariosTatuagem> horariosDisponiveisFormatados = agendaService.formatarHorariosDisponiveis(horariosDisponveis, propostaTatuagem.getNumeroSessoes());
 
         model.addAttribute("horarios", horariosDisponiveisFormatados);

@@ -19,7 +19,7 @@
                 </div>
         </div>
 
-        <form id="formHorarios" th:action="@{/artist/salvar-horarios}" method="POST" th:object="${formCadastroHorarios}">
+        <form id="formHorarios" th:action="@{/funcionario/salvar-horarios}" method="POST" th:object="${formCadastroHorarios}">
             <input type="hidden" id="agendaId" name="agendaId" th:value="${agenda.id}">
             <input type="hidden" id="horariosId" name="horariosId">
             <button class="mt-2 btn-primary btn" type="submit">Salvar</button>
