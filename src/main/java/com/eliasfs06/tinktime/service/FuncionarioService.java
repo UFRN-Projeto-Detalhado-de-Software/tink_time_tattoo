@@ -7,7 +7,6 @@ import com.eliasfs06.tinktime.repository.FuncionaroRepository;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class FuncionarioService extends GenericService<Funcionario> {
     @Autowired
     private AgendaService agendaService;
 
-    private FuncionarioFactory funcionarioFactory;
+    private FuncionarioCreator funcionarioCreator;
 
     public FuncionarioService(GenericRepository<Funcionario> repository) {
         super(repository);
@@ -33,8 +32,8 @@ public class FuncionarioService extends GenericService<Funcionario> {
     }
 
     public void createFuncionario(User user) {
-        funcionarioFactory = new TatuadorFactory();
-        Funcionario funcionario = funcionarioFactory.createFuncionario();
+        funcionarioCreator = new ConcreteCreatorTatuador();
+        Funcionario funcionario = funcionarioCreator.createFuncionario();
         funcionario.setUser(user);
         agendaService.createAgenda(funcionario);
         save(funcionario);

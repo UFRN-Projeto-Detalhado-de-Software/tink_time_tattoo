@@ -1,8 +1,8 @@
 package com.eliasfs06.tinktime.model;
 
-public class TatuadorFactory implements FuncionarioFactory {
+public class ConcreteCreatorBarbeiro implements FuncionarioCreator {
     @Override
     public Funcionario createFuncionario() {
-        return new Tatuador();
+        return new Barbeiro();
     }
 }

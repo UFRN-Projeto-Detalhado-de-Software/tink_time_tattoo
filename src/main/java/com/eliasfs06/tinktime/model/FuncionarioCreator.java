@@ -1,5 +1,5 @@
 package com.eliasfs06.tinktime.model;
 
-public interface FuncionarioFactory {
+public interface FuncionarioCreator {
     Funcionario createFuncionario();
 }
