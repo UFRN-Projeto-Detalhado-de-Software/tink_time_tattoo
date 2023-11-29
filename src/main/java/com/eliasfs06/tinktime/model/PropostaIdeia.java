@@ -73,4 +73,5 @@ public class PropostaIdeia extends BaseEntity {
     public void setNumeroSessoes(Integer numeroSessoes) {
         this.numeroSessoes = numeroSessoes;
     }
+
 }
