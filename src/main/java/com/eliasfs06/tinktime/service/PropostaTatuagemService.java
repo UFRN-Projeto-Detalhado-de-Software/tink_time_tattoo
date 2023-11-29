@@ -71,7 +71,7 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
 
     public List<PropostaTatuagem> getPropostasByRole(User user){
         List<PropostaTatuagem> propostasList = new ArrayList<>();
-        if(user.getUserRole() == UserRole.ARTIST) {
+        if(user.getUserRole() == UserRole.EMPLOYEE) {
             propostasList = listPropostasByTatuadorID(user.getId());
         } else {
             propostasList = listPropostasByClienteID(user.getId());

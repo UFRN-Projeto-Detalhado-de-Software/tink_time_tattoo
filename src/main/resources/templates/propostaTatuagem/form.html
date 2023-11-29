@@ -15,12 +15,12 @@
             <h2>Enviar Proposta de tatuagem</h2>
             <form th:action="@{/proposta-tatuagem/create}" method="post" th:object="${newTatuagem}">
                 <div class="form-group">
-                    <label for="tatuador">Tatuador:</label>
+                    <label for="tatuador">Funcionário:</label>
                     <select id="tatuador" name="tatuador" class="form-select" th:field="*{tatuador}">
                         <option value="">-- Selecione --</option>
-                        <option th:each="artista : ${artistas}"
-                                th:value="${artista.user.id}"
-                                th:text="${artista.user.person.name}"></option>
+                        <option th:each="funcionario : ${funcionarios}"
+                                th:value="${funcionario.user.id}"
+                                th:text="${funcionario.user.person.name}"></option>
                     </select>
                     <span th:if="${#fields.hasErrors('tatuador')}" th:errors="*{tatuador}" class="text-danger"></span>
                 </div>

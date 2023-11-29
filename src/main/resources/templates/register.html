@@ -13,7 +13,7 @@
             <h2>Cadastro</h2>
             <form th:action="@{/user/register}" method="post" th:object="${newUser}">
                 <div class="form-group">
-                    <label for="name">Name:</label>
+                    <label for="name">Nome:</label>
                     <input type="text" id="name" name="name" class="form-control" th:field="*{name}" />
                     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
                 </div>
@@ -29,20 +29,20 @@
                 </div>
                 <!-- Senha -->
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label for="password">Senha:</label>
                     <input type="password" id="password" name="password" class="form-control" th:field="*{password}"/>
                     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
                 </div>
                 <!-- Papel -->
                 <div class="form-group">
-                    <label for="userRole">User role:</label>
+                    <label for="userRole">Papel do Usuário:</label>
                     <select id="userRole" name="userRole" class="form-control" th:field="*{userRole}">
                         <option value="ADMIN">Admin</option>
-                        <option value="USER">User</option>
-                        <option value="ARTIST">Artist</option>
+                        <option value="CLIENT">Cliente</option>
+                        <option value="EMPLOYEE">Funcionário</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
             </form>
         </div>
     </div>

@@ -68,10 +68,10 @@ public class User extends BaseEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRole.ADMIN)
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        else if (this.role == UserRole.ARTIST)
-            return List.of(new SimpleGrantedAuthority("ROLE_ARTIST"));
+        else if (this.role == UserRole.EMPLOYEE)
+            return List.of(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
         else
-            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+            return List.of(new SimpleGrantedAuthority("ROLE_CLIENT"));
     }
 
     public String getPassword() {

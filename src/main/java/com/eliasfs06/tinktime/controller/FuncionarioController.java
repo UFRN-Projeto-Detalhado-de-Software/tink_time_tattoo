@@ -1,11 +1,11 @@
 package com.eliasfs06.tinktime.controller;
 
 import com.eliasfs06.tinktime.model.*;
-import com.eliasfs06.tinktime.model.dto.ArtistDTO;
+import com.eliasfs06.tinktime.model.dto.FuncionarioDTO;
 import com.eliasfs06.tinktime.model.dto.FormCadastroHorarios;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.service.AgendaService;
-import com.eliasfs06.tinktime.service.ArtistService;
+import com.eliasfs06.tinktime.service.FuncionarioService;
 import com.eliasfs06.tinktime.service.DiaAgendaService;
 import com.eliasfs06.tinktime.service.HorarioService;
 import jakarta.validation.Valid;
@@ -19,16 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
-@RequestMapping("artist")
-public class ArtistController extends GenericController<Artist> {
+@RequestMapping("funcionario")
+public class FuncionarioController extends GenericController<Funcionario> {
 
     @Autowired
-    private ArtistService artistService;
+    private FuncionarioService funcionarioService;
 
     @Autowired
     private AgendaService agendaService;
@@ -39,57 +37,56 @@ public class ArtistController extends GenericController<Artist> {
     @Autowired
     private HorarioService horarioService;
 
-    public ArtistController(GenericRepository<Artist> repository) {
+    public FuncionarioController(GenericRepository<Funcionario> repository) {
         super(repository);
     }
 
     @GetMapping("/profile")
     public String getProfile(Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ArtistDTO artist = artistService.findByUser(user);
+        FuncionarioDTO funcionario = funcionarioService.findByUser(user);
 
-        if(artist.getId() == null){
-            artist.setUser(user);
+        if(funcionario.getId() == null){
+            funcionario.setUser(user);
         }
 
-        model.addAttribute("artist", artist);
-        model.addAttribute("allStyles", TattoStyle.getAllStyles());
-        return "artist/profile";
+        model.addAttribute("funcionario", funcionario);
+        return "funcionario/profile";
     }
 
     @PostMapping("/profile")
-    public String saveProfile(@ModelAttribute("artist") @Valid ArtistDTO artist, BindingResult br, Model model){
+    public String saveProfile(@ModelAttribute("funcionario") @Valid FuncionarioDTO funcionario, BindingResult br, Model model){
         if(br.hasErrors()){
-            return "artist/profile";
+            return "funcionario/profile";
         }
 
-        artistService.save(artist.toArtist());
-        model.addAttribute("artist", artist);
+        funcionarioService.save(funcionario.toFuncionario());
+        model.addAttribute("funcionario", funcionario);
         model.addAttribute("allStyles", TattoStyle.getAllStyles());
 
-        return "artist/profile";
+        return "funcionario/profile";
     }
 
     @GetMapping("/list")
-    public ModelAndView listArtists(){
+    public ModelAndView listFuncionarios(){
         ModelAndView modelAndView = new ModelAndView();
-        List<Artist> artistList = artistService.listActiveArtists();
-        modelAndView.addObject("artistList", artistList);
-        modelAndView.setViewName("artist/list");
+        List<Funcionario> funcionarioList = funcionarioService.listActiveFuncionarios();
+        modelAndView.addObject("funcionarioList", funcionarioList);
+        modelAndView.setViewName("funcionario/list");
         return modelAndView;
     }
 
     @GetMapping("/agenda")
     public String agenda(){
-        return "/artist/agenda";
+        return "/funcionario/agenda";
     }
 
     @GetMapping("/agenda-dia/{data}")
     public String agendaDia(@PathVariable String data, Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ArtistDTO artistDTO = artistService.findByUser(user);
-        Artist artist = artistDTO.toArtist();
-        Agenda agenda = agendaService.findByArtist(artist);
+        FuncionarioDTO funcionarioDTO = funcionarioService.findByUser(user);
+        Funcionario funcionario = funcionarioDTO.toFuncionario();
+        Agenda agenda = agendaService.findByFuncionario(funcionario);
         DiaAgenda diaAgenda = diaAgendaService.findByDia(agenda, data);
         if(diaAgenda == null){
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -105,6 +102,6 @@ public class ArtistController extends GenericController<Artist> {
     public String salvarHorarios(@ModelAttribute FormCadastroHorarios formCadastroHorarios, Model model) {
         horarioService.saveFromForm(formCadastroHorarios);
         model.addAttribute("msgHorariosSalvos", "Horários salvos com sucesso");
-        return "/artist/agenda";
+        return "/funcionario/agenda";
     }
 }

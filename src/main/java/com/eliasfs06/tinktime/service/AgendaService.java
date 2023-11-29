@@ -6,6 +6,7 @@ import com.eliasfs06.tinktime.repository.AgendaRepository;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -28,12 +29,13 @@ public class AgendaService extends GenericService<Agenda> {
         super(repository);
     }
 
-    public void createAgenda(Artist artist) {
+    public void createAgenda(Funcionario funcionario) {
         Agenda agenda = new Agenda();
-        artist.setAgenda(agenda);
+        funcionario.setAgenda(agenda);
         save(agenda);
     }
 
+    @Transactional
     public DiaAgenda createDiaAgenda(Agenda agenda, LocalDate dia){
         DiaAgenda diaAgenda = new DiaAgenda();
         diaAgenda.setDia(dia);
@@ -58,12 +60,12 @@ public class AgendaService extends GenericService<Agenda> {
         return diaAgenda;
     }
 
-    public Agenda findByArtist(Artist artist) {
-        return agendaRepository.findByArtist(artist);
+    public Agenda findByFuncionario(Funcionario funcionario) {
+        return agendaRepository.findByFuncionario(funcionario);
     }
 
-    public List<HorariosTatuagem> sugerirHorarios(Artist artist, Integer numeroSessoes) {
-        List<DiaAgenda> diaAgendaDisponiveis = diaAgendaService.findDiaAgendaComHorariosAbertoByArtist(artist);
+    public List<HorariosTatuagem> sugerirHorarios(Funcionario funcionario, Integer numeroSessoes) {
+        List<DiaAgenda> diaAgendaDisponiveis = diaAgendaService.findDiaAgendaComHorariosAbertoByFuncionario(funcionario);
         List<DiaAgenda> diaAgendaPossiveis = new ArrayList<>();
 
         for(DiaAgenda diaAgenda : diaAgendaDisponiveis){
