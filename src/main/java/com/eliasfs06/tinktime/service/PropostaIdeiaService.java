@@ -4,6 +4,7 @@ import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.PropostaIdeia;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.UserRole;
+import com.eliasfs06.tinktime.model.ValidadorDeIdeiaTatuagem;
 import com.eliasfs06.tinktime.model.dto.PropostaIdeiaDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.PropostaIdeiaRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,22 +36,15 @@ public class PropostaIdeiaService extends GenericService<PropostaIdeia> {
     }
 
     @Transactional
-    public PropostaIdeia create(PropostaIdeiaDTO propostaIdeiaDTO) throws BusinessException {
+    public PropostaIdeia create(PropostaIdeiaDTO propostaIdeiaDTO) throws BusinessException, ParseException {
         PropostaIdeia propostaIdeia = new PropostaIdeia();
+        ValidadorDeIdeiaTatuagem validadorDeIdeiaTatuagem = new ValidadorDeIdeiaTatuagem(userRepository);
 
-        if (propostaIdeiaDTO.getCliente() == null || propostaIdeiaDTO.getTatuador() == null) {
-            throw new BusinessException("Cliente ou tatuador não pode ser nulo");
-        }
-        User cliente = userRepository.findById(propostaIdeiaDTO.getCliente().getId()).orElse(null);
-        User tatuador = userRepository.findById(propostaIdeiaDTO.getTatuador().getId()).orElse(null);
-
-        if (cliente == null || tatuador == null) {
-            throw new BusinessException("Cliente ou tatuador não encontrado");
+        if (!validadorDeIdeiaTatuagem.validar(propostaIdeiaDTO)) {
+            throw new BusinessException("Criação de proposta inválida");
         }
 
-        propostaIdeia.setCliente(cliente);
-        propostaIdeia.setTatuador(tatuador);
-        propostaIdeia.setDescricao(propostaIdeiaDTO.getDescricao());
+        propostaIdeia = propostaIdeiaDTO.toPropostaIdeia();
         propostaIdeiaRepository.save(propostaIdeia);
 
         return propostaIdeia;
