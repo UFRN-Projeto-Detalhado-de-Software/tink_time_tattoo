@@ -31,12 +31,12 @@ public class FuncionarioService extends GenericService<Funcionario> {
         return new FuncionarioDTO(funcionario);
     }
 
-    public void createFuncionario(User user) {
+    public Funcionario createFuncionario(User user) {
         funcionarioCreator = new ConcreteCreatorTatuador();
         Funcionario funcionario = funcionarioCreator.createFuncionario();
         funcionario.setUser(user);
         agendaService.createAgenda(funcionario);
-        save(funcionario);
+        return save(funcionario);
     }
 
     public List<UserDTO> getListUserDTOFuncionarios(List<Funcionario> funcionarios){
