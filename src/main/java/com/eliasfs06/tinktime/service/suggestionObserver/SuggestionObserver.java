@@ -2,11 +2,8 @@ package com.eliasfs06.tinktime.service.suggestionObserver;
 
 import com.eliasfs06.tinktime.model.Client;
 import com.eliasfs06.tinktime.model.Funcionario;
-import com.eliasfs06.tinktime.model.TattoStyle;
-import com.eliasfs06.tinktime.model.Tatuador;
 import com.eliasfs06.tinktime.model.enums.UnidadeFederacao;
 import com.eliasfs06.tinktime.repository.ClienteRepository;
-import com.eliasfs06.tinktime.repository.FuncionaroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
