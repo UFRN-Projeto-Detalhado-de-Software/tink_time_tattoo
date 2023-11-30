@@ -45,11 +45,12 @@ public class PropostaIdeiaService extends GenericService<PropostaIdeia> {
         }
 
         propostaIdeia = propostaIdeiaDTO.toPropostaIdeia();
-        propostaIdeiaRepository.save(propostaIdeia);
+        save(propostaIdeia);
 
         return propostaIdeia;
     }
 
+    @Transactional
     public List<PropostaIdeia> listPropostasByTatuadorID(Long id){
         Optional<List<PropostaIdeia>> propostas =  propostaIdeiaRepository.findAllByTatuadorId(id);
         if (propostas.isPresent())
@@ -57,6 +58,7 @@ public class PropostaIdeiaService extends GenericService<PropostaIdeia> {
         return new ArrayList<>();
     }
 
+    @Transactional
     public List<PropostaIdeia> listPropostasByClienteID(Long id){
         Optional<List<PropostaIdeia>> propostas =  propostaIdeiaRepository.findAllByClienteId(id);
         if (propostas.isPresent())
@@ -64,6 +66,7 @@ public class PropostaIdeiaService extends GenericService<PropostaIdeia> {
         return new ArrayList<>();
     }
 
+    @Transactional
     public List<PropostaIdeia> getPropostasByRole(User user){
         List<PropostaIdeia> propostasList = new ArrayList<>();
         if(user.getUserRole() == UserRole.EMPLOYEE) {
