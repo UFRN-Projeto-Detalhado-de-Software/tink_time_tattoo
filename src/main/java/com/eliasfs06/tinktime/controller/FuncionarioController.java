@@ -58,12 +58,12 @@ public class FuncionarioController extends GenericController<Funcionario> {
     }
 
     @PostMapping("/profile")
-    public String saveProfile(@ModelAttribute("tatuador") @Valid TatuadorDTO tatuador, BindingResult br, Model model){
+    public String saveProfile(@ModelAttribute("tatuador") @Valid Tatuador tatuador, BindingResult br, Model model){
         if(br.hasErrors()){
             return "funcionario/profile";
         }
 
-        funcionarioService.save(tatuador.toFuncionario());
+        funcionarioService.save(tatuador);
         model.addAttribute("tatuador", tatuador);
         model.addAttribute("allStyles", TattooStyle.getAllStyles());
 

@@ -1,6 +1,5 @@
 package com.eliasfs06.tinktime.model.dto;
 
-import com.eliasfs06.tinktime.model.Funcionario;
 import com.eliasfs06.tinktime.model.TattooStyle;
 import com.eliasfs06.tinktime.model.Tatuador;
 
