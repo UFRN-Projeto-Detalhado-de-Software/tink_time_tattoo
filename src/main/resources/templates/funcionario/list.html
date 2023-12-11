@@ -32,6 +32,7 @@
                         <td th:text="${funcionario.estudio}"></td>
                         <td>
                             <span th:each="style : ${funcionario.styles}" th:text="${style.description} + '; '"></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
