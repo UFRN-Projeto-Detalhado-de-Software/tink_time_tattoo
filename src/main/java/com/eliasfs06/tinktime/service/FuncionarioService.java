@@ -2,6 +2,7 @@ package com.eliasfs06.tinktime.service;
 
 import com.eliasfs06.tinktime.model.*;
 import com.eliasfs06.tinktime.model.dto.FuncionarioDTO;
+import com.eliasfs06.tinktime.model.dto.TatuadorDTO;
 import com.eliasfs06.tinktime.model.dto.UserDTO;
 import com.eliasfs06.tinktime.repository.FuncionarioRepository;
 import com.eliasfs06.tinktime.repository.GenericRepository;
@@ -27,8 +28,8 @@ public class FuncionarioService extends GenericService<Funcionario> {
     }
 
     public FuncionarioDTO findByUser(User user) {
-        Funcionario funcionario = repository.findByUser(user);
-        return new FuncionarioDTO(funcionario);
+        Tatuador funcionario = (Tatuador) repository.findByUser(user);
+        return new TatuadorDTO(funcionario);
     }
 
     public Funcionario createFuncionario(User user) {
